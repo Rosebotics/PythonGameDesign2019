@@ -11,3 +11,8 @@ print('3 + 9', 'versus', 3 + 9)
 # TODO:    2. Two big numbers, followed by their sum.
 # TODO:    3. The result of 3,607 multiplied by 34,227.  (Hint: the result is interesting.)
 # TODO:    4. Anything else you like!
+print('hi there, SPENCER')
+print(1200,4500,1200+4500)
+print(3607,34227,3607*34227)
+print(78,5,78/5)
+print(987.56423,45013899,987.56423*45013899)
