@@ -36,3 +36,4 @@ while True:
 
     pygame.draw.rect(screen, (60, 180, 0), (20, rect2Y, 20, 75))
     pygame.display.update()
+
