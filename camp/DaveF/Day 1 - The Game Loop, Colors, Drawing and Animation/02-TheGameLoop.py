@@ -1,4 +1,4 @@
-# My first Pygame program.
+# My first Pygame program. :)
 # Authors: Many people and <PUT-YOUR-NAME-HERE>
 
 import pygame
