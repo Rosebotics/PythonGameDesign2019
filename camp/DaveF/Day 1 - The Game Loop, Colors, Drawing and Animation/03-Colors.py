@@ -1,4 +1,4 @@
-# TODO: Copy all of your   02-TheGameLoop.py   program and put it below this comment.
+# TODO: Copy all of your   02-TheGameLoop.py   program and put it below this comment. Wow!
 # TODO    One way to do so is:
 # TODO      1. Inside  02-TheGameLoop.py,  do:
 # TODO           -- Control-A (to SELECT the entire contents of the file, then
