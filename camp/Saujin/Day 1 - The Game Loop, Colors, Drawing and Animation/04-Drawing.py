@@ -6,3 +6,28 @@
 # TODO      2. Inside this file:
 # TODO           -- Click below this comment, then
 # TODO           -- Control-V (to PASTE the copied code into this file.
+
+
+# My first Pygame program.
+# Authors: Many people and Saujin
+
+import pygame
+import sys
+screenSize = (640,480)
+backroundcolor = (0,200,220)
+circlecolor = (0,0,0)
+circleradius = 20
+
+
+pygame.init()
+screen = pygame.display.set_mode(screenSize)
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+    screen.fill(backroundcolor)
+    pygame.draw.circle(screen, (circlecolor), (300, 150), circleradius)
+    pygame.draw.rect(screen, (230,0,240), (600, 100, 20, 75))
+
+
+    pygame.display.update()
