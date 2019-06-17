@@ -1,4 +1,4 @@
-# Authors: David Mutchler, Dave Fisher, and many others before them.xxx
+# Authors: David Mutchler, Dave Fisher, and many others before them.
 
 print('Hello, World')
 print('hi there')
