@@ -6,3 +6,31 @@
 # TODO      2. Inside this file:
 # TODO           -- Click below this comment, then
 # TODO           -- Control-V (to PASTE the copied code into this file.
+
+# My first Pygame program.
+# Authors: Many people and Arya
+
+import pygame
+import sys
+import time
+
+color = (167, 79, 120)
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+    time.sleep(1)
+    screen.fill(color)
+    pygame.display.update()
+
+    time.sleep(1)
+    screen.fill(67, 125, 0)
+    pygame.display.update()
+
+
+# TODO: With your instructor's help (live coding):
+#   - Put your name as an author.
+#   - Make the game loop be able to stop more gracefully.

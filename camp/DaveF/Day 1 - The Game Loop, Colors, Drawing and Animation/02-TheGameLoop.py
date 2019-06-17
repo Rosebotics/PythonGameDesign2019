@@ -1,5 +1,5 @@
-# My first Pygame program.
-# Authors: Many people and <PUT-YOUR-NAME-HERE> Monty
+# My first Pygame program. :)
+# Authors: Many people and <PUT-YOUR-NAME-HERE>
 
 import pygame
 import sys
