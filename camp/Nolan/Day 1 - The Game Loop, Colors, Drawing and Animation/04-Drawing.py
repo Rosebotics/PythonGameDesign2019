@@ -1,4 +1,4 @@
-# TODO: Copy all of your   03-Colors.py   program and put it below this comment. Boom!
+# TODO: Copy all of your   03-Colors.py   program and put it below this comment.
 # TODO    One way to do so is:
 # TODO      1. Inside  03-Colors.py,  do:
 # TODO           -- Control-A (to SELECT the entire contents of the file, then
