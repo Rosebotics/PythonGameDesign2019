@@ -1,8 +1,39 @@
-# TODO: Copy all of your   03-Colors.py   program and put it below this comment.
-# TODO    One way to do so is:
-# TODO      1. Inside  03-Colors.py,  do:
-# TODO           -- Control-A (to SELECT the entire contents of the file, then
-# TODO           -- Control-C (to COPY that entire selection)
-# TODO      2. Inside this file:
-# TODO           -- Click below this comment, then
-# TODO           -- Control-V (to PASTE the copied code into this file.
+#
+
+# My first Pygame program.
+# Authors: Many people and Arya
+
+import pygame
+import sys
+import time
+
+color = (134, 225, 135)
+
+white = (255, 99, 79)
+circlelocation = (320, 240)
+circleradius = 50
+
+mint =(255, 99, 79)
+circlelocation = (325, 245)
+circleradius = 50
+
+rectX = 320
+rectY = 350
+rectWidth = 50
+rectHeight =175
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+    screen.fill(color)
+    pygame.draw.circle(screen, white, circlelocation, circleradius)
+    pygame.draw.circle(screen, mint, circlelocation, circleradius)
+    pygame.draw.rect(screen,white, (rectX, rectY, rectWidth, rectHeight))
+    pygame.display.update()
+
+
+
