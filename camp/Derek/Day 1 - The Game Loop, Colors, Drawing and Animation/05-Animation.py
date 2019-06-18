@@ -1,6 +1,6 @@
 # TODO: Copy all of your   04-Drawing.py   program and put it below this comment.
 
-# Sloth Jaws
+# Painted Jaws
 # Authors: Derek, Professor Dave, and Becca
 import time
 import pygame
@@ -40,7 +40,7 @@ while True:
             sys.exit()
 
     screen.fill (backgroundColor)
-    time.sleep(0.95)
+    time.sleep(0.005)
     circleRadius = circleRadius + 1
     pygame.draw.circle(screen,white,circleLocation,circleRadius)
     pygame.draw.circle(screen,white,circleLocation2, circleRadius)
@@ -57,7 +57,7 @@ while True:
     pygame.draw.circle(screen,white,circleLocation61,circleRadius)
     pygame.draw.circle(screen,white,circleLocation01,circleRadius)
     pygame.display.update()
-    time.sleep(0.95)
+    time.sleep(0.005)
     circleRadius=circleRadius+1
     pygame.draw.circle(screen,orange,circleLocation,circleRadius)
     pygame.draw.circle(screen,orange,circleLocation2,circleRadius)
