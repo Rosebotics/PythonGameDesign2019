@@ -1,38 +1,6 @@
 # TODO: Copy all of your   04-Drawing.py   program and put it below this comment.
 import pygame
 import sys
-
-
-
-class Ball:
-
-    def _init_(self, screen, x, y, xSpeed, ySpeed, color, radius):
-        self.screen = screen
-        self.x = x
-        self.y = y
-        self.xSpeed = xSpeed
-        self.ySpeed = ySpeed
-        self.color = color
-        self.radius = radius
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from pygame.locals import *
 
 screenSize = (640, 480)
@@ -95,9 +63,9 @@ while True:
     collided2 = pygame.Rect(rect2x, rect2y, 20, 75).collidepoint(circleX - CircleRadius, circleY)
 
     if collided1 or collided2:
-        circleXSpeed = circleXSpeed * -1.02
+        circleXSpeed = circleXSpeed * -1
 
-    pygame.draw.circle(screen, CircleColor, (int(circleX), int(circleY)), CircleRadius)
+    pygame.draw.circle(screen, CircleColor, (circleX, circleY), CircleRadius)
     #rect1
     pygame.draw.rect(screen, (255, 0, 0), (rectx, rectY, 20, 75))
     #rect2
