@@ -2,17 +2,32 @@
 import pygame
 import sys
 from pygame.locals import *
+
+
+class Ball:
+
+    def __init__(self, screen, x, y, xSpeed, ySpeed, color, radius):
+        self.x = x
+        self.y = y
+        self.screen = screen
+
+
+
+
+
+
+
 circleX = 300
 circleY = 150
 screenSize = (640, 480)
 backgroundColor = (0, 255, 0)
-circleColor = (155, 0, 0)
-circleRadius = 10
+circleColor = (0, 0, 0)
+circleRadius = 20
 
 rectX2= 20
 rectY2 = 100
-rectSpeed = 5
-circleXSpeed = 3
+rectSpeed = 10
+circleXSpeed = 5
 circleYSpeed = 2
 
 rectX = 600
