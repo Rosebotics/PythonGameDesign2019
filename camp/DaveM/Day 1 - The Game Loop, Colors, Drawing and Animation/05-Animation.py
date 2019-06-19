@@ -34,7 +34,6 @@ while True:
 
     screen.fill(backgroundColor)
 
-    #circleRadius = circleRadius + 1
     circleX = circleX + 1
 
     pygame.draw.circle(screen, white, (circleX, circleY), circleRadius)
