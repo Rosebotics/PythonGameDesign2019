@@ -7,13 +7,13 @@ circleY = 150
 screenSize = (640, 480)
 backgroundColor = (0, 255, 0)
 circleColor = (155, 0, 0)
-circleRadius = 10
+circleRadius = 20
 
 rectX2= 20
-rectY2 = 100
-rectSpeed = 5
-circleXSpeed = 3
-circleYSpeed = 2
+rectY2 = 20
+rectSpeed = 10
+circleXSpeed = 2
+circleYSpeed = 10
 
 rectX = 600
 rectY = 200
