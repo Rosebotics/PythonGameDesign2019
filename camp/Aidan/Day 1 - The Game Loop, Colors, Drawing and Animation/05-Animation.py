@@ -9,7 +9,7 @@ import time
 backgroundColor = (50, 60, 123.456789)
 
 white = (255, 255, 255)
-circleLocation = (300, 150)
+circleLocation = b(300, 150)
 pygame.init()
 
 circleRaidous = 100
