@@ -3,16 +3,6 @@ import pygame
 import sys
 from pygame.locals import *
 
-
-class Ball:
-    def _init_(self, screen, x, y, xSpeed, ySpeed, color, radius):
-       self.screen = screen
-       self.x = x
-       self.y = y
-       self. xSpeed = xSpeed
-       self.color = color
-       self. radius = radius
-
 screenSize = (640, 480)
 backgroundColor = (20, 40, 255)
 circleColor = (1, 0, 30)
