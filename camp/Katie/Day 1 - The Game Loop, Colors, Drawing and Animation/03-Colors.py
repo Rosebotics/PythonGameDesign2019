@@ -1,4 +1,21 @@
 # TODO: Copy all of your   02-TheGameLoop.py   program and put it below this comment.
+
+import pygame
+import sys
+
+screenSize = (640, 480)
+backgroundColor = (100, 255, 200)
+
+pygame.init()
+screen = pygame.display.set_mode((screenSize))
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+    screen.fill((backgroundColor))
+    pygame.display.update()
+
 # TODO    One way to do so is:
 # TODO      1. Inside  02-TheGameLoop.py,  do:
 # TODO           -- Control-A (to SELECT the entire contents of the file, then

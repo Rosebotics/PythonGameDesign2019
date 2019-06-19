@@ -21,18 +21,21 @@
 import pygame
 import sys
 
-backgroundColor = (255,255,255)
-pink =(255,0,0)
-circlelocation = (300,460)
+backgroundColor = (0,255,255)
+pink =(40,0,0)
+circlelocation = (300,263)
 circleRadius = 20
-yellow = 255,255,0
+yellow = 0,255,0
 
 rectX =0
 rectY =400
 rectwidth =20
 rectheight = 75
 
-
+rectX=30
+rectY=15
+rectwidth=400
+rectheight=60
 circleSpeed = .1
 pygame.init()
 screen = pygame.display.set_mode((640, 480))
@@ -46,11 +49,13 @@ while True:
         circleRadius = circleRadius + direction
         pygame.draw.circle(screen,pink,circlelocation,circleRadius)
         pygame.draw.circle(screen,yellow,circlelocation,circleRadius-5)
-        pygame.draw.rect (screen,pink,(rectX,rectY, rectwidth, rectheight))
+
         pygame.display.update()
         if circleRadius > 500:
             direction = - direction
             pygame.draw.circle(screen,pink,circlelocation,circleRadius)
             pygame.draw.circle(screen,yellow,circlelocation,circleRadius-5)
-            pygame.draw.rect (screen,pink,(rectX,rectY, rectwidth, rectheight))
+            pygame.draw.rect (screen,blue,(rectX,rectY, rectwidth, rectheight))
+            pygame.draw.circle(screen,blue,circlelocation,circleRadius)
+
             pygame.display.update()
