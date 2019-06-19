@@ -1,38 +1,6 @@
 # TODO: Copy all of your   04-Drawing.py   program and put it below this comment.
 import pygame
 import sys
-
-
-
-class Ball:
-
-    def _init_(self, screen, x, y, xSpeed, ySpeed, color, radius):
-        self.screen = screen
-        self.x = x
-        self.y = y
-        self.xSpeed = xSpeed
-        self.ySpeed = ySpeed
-        self.color = color
-        self.radius = radius
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from pygame.locals import *
 
 screenSize = (640, 480)
@@ -52,7 +20,11 @@ rectx = 600
 rect2x = 40
 
 pygame.init()
-pygame.display.set_caption("Pong!")
+#largeText = pygame.font.Font('freesansbold.ttf',115)
+#TextSurf, TextRect = text_objects(text, largeText)
+#TextRect.center = ((display_width/2),(display_height/2))
+ #   gameDisplay.blit(TextSurf, TextRect)
+
 pygame.key.set_repeat(1, 10)
 screen = pygame.display.set_mode(screenSize)
 clock = pygame.time.Clock()

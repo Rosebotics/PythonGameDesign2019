@@ -1,7 +1,17 @@
 # TODO: Copy all of your   04-Drawing.py   program and put it below this comment.
+import random
+
 import pygame
 import sys
 from pygame.locals import *
+
+
+def draw_text(screen, text, position):
+    font = pygame.font.SysFont('Arial', 16)
+    textSurface = font.render(text, True, (255, 255, 255))
+    rect = textSurface.get_rect()
+    rect.center = position
+    screen.blit(textSurface, rect)
 
 
 class Ball:
@@ -29,6 +39,11 @@ class Ball:
 
     def collided(self):
          self.xSpeed = self.xSpeed * -1
+
+
+
+
+
 
 screenSize = (640, 480)
 backgroundColor = (0, 0, 0)
@@ -82,18 +97,26 @@ while True:
 
     # fill background before drawing
     screen.fill(backgroundColor)
+    draw_text(screen, str(score1), (320,100))
 
-    ball.move()
-    ball.draw()
+    toadd = []
+    for ball in balls:
 
-    collided1 = pygame.Rect(rectx, rectY, 20, 75).collidepoint(ball.x + ball.radius, ball.y)
-    collided2 = pygame.Rect(rect2x, rect2y, 20, 75).collidepoint(ball.x - ball.radius, ball.y)
+      ball.move()
+      ball.draw()
 
-    if collided1 or collided2:
-        ball.collided()
-        #circleXSpeed = circleXSpeed * -1
+      collided1 = pygame.Rect(rectx, rectY, 20, 75).collidepoint(ball.x + ball.radius, ball.y)
+      collided2 = pygame.Rect(rect2x, rect2y, 20, 75).collidepoint(ball.x - ball.radius, ball.y)
 
-    #pygame.draw.circle(screen, CircleColor, (circleX, circleY), CircleRadius)
+      if collided1 or collided2:
+            ball.collided()
+
+            if collided1:
+                toadd.append(Ball(screen,ball.x, ball.y, -random.randint(2,6), random.randint(1,3), (255, 255, 255), 20))
+            if collided2:
+                toadd.append(Ball(screen,ball.x, ball.y, random.randint(2,6), random.randint(1,3), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 20))
+    for ball in toadd:
+        balls.append(ball)
     #rect1
     pygame.draw.rect(screen, (255, 0, 0), (rectx, rectY, 20, 75))
     #rect2
