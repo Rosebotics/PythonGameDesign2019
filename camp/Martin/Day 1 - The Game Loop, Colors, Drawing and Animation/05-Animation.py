@@ -17,16 +17,16 @@ circleRadius = 200
 width = 199
 
 Yellow = (255, 255, 0)
-#rectX = 260
-#rectY = 220
-#rectWidth = 120
-#rectHeight = 40
+rectX = 260
+rectY = 220
+rectWidth = 120
+rectHeight = 40
 
 
-#rect2X = 280
-#rect2Y = 230
-#rect2Width = 80
-#rect2Height = 20
+rect2X = 280
+rect2Y = 230
+rect2Width = 80
+rect2Height = 20
 
 RectSpeed = 1
 CircleSpeed = 1
@@ -42,18 +42,18 @@ while True:
     screen.fill(backgroundColor)
 
     circleRadius = circleRadius + 1
-    #rectWidth = rectWidth + 2
-    #rectHeight = rectHeight + 2
-    #rectX = rectX - 1
-    #rectY = rectY - 1
-    #rect2Width = rect2Width + 2
-    #rect2Height = rect2Height + 2
-    #rect2X = rect2X - 1
-    #rect2Y = rect2Y - 1
+    rectWidth = rectWidth + 2
+    rectHeight = rectHeight + 2
+    rectX = rectX - 1
+    rectY = rectY - 1
+    rect2Width = rect2Width + 2
+    rect2Height = rect2Height + 2
+    rect2X = rect2X - 1
+    rect2Y = rect2Y - 1
 
     pygame.draw.circle(screen, Red, circleLocation, circleRadius, width)
-    #pygame.draw.rect(screen, Yellow, (rectX, rectY, rectWidth, rectHeight))
-    #pygame.draw.rect(screen, backgroundColor, (rect2X, rect2Y, rect2Width, rect2Height))
+    pygame.draw.rect(screen, Yellow, (rectX, rectY, rectWidth, rectHeight))
+    pygame.draw.rect(screen, backgroundColor, (rect2X, rect2Y, rect2Width, rect2Height))
     pygame.display.update()
 
 

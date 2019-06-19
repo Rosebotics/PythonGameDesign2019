@@ -7,7 +7,7 @@ backgroundColor = (0,0,255)
 circleColor = (255,255,255)
 circleRadius = (20)
 rectY = 100
-rectangleSpeed = 5
+gameSpeed = 5
 pygame.init()
 screen = pygame.display.set_mode(screenSize)
 clock = pygame.time.Clock()
@@ -21,6 +21,8 @@ while True:
             rectY = rectY - 10
         if pressed_keys[K_DOWN]:
             rectY = rectY + 10
+
+        if
 
     screen.fill(backgroundColor)
     pygame.draw.circle(screen, (circleColor), (300, 150), circleRadius)
