@@ -47,7 +47,7 @@ class Ball:
         self.yspeed = self.yspeed * -1
 
 screenSize = (640, 480)
-backgroundColor = (20, 225, 20)
+backgroundColor = (0, 0, 0)
 circleColor = (220, 0, 0)
 circleRadius = 20
 X = 300
