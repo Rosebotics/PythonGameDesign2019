@@ -129,26 +129,27 @@ def main():
     screen = pygame.display.set_mode((1040, 1050))
 
 
-    # TODO 10: Create a Fighter (called fighter) at location  320, 590.
+    # TODO 10: See how you made a Ball in your Pong game to:
+    #  TODO: Create a Fighter (called fighter) at location  320, 590.
     fighter = Fighter(screen, 320, 590)
 
     # TODO: Set    enemy_rows    to an initial value of 3.
-    enemy_rows = 3
-    enemy = EnemyFleet(screen, enemy_rows)
+    # enemy_rows = 3
+    # enemy = EnemyFleet(screen, enemy_rows)
 
     # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
 
     # TODO: Create a Scoreboard, called scoreboard, using the screen at location 5, 5
 
-    # TODO 3:  Use the example from your Pong game to:
+    # TODO 3:  See the example from your Pong game to:
     #   TODO: Make a   while True:    loop.
     while True:
 
-        # TODO 4: Use the example from your Pong game to (INSIDE your  while True:  loop):
+        # TODO 4: See the example from your Pong game to (INSIDE your  while True:  loop):
         #   TODO: Fill the screen with black, which is (0, 0, 0).
         screen.fill((0, 0, 0))
 
-        # TODO 6:  Use the example from your Pong game to (still INSIDE your  while True:  loop):
+        # TODO 6:  See the example from your Pong game to (still INSIDE your  while True:  loop):
         #   TODO: Make the clock tick 60 units.
         #   TODO: Add a   for event in pygame.event.get():  loop
         #   TODO: whose insides checks if the event.type == pygame.QUIT
@@ -159,15 +160,23 @@ def main():
             if event.type == QUIT:
                 sys.exit()
 
+        # TODO 12:  See how you used the arrow keys to move the paddles in your Pong game to:
+        #   TODO: Set   pressed_keys   to the keys that have been pressed.
+        #   TODO: If K_LEFT is pressed and   fighter.x > -50  , move the fighter left 3 (by using  fighter.x)
+        #   TODO: If K_RIGHT is pressed and  fighter.x < 590  , move the fighter right 3 (by using fighter.x).
+        #   NOTE: At this point you should be able to move the figher left and right.
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_LEFT] and fighter.x > -50:
+            fighter.x = fighter.x - 5
+        if pressed_keys[pygame.K_RIGHT] and fighter.x < 590:
+            fighter.x = fighter.x + 5
+
+
         # pressed_keys = pygame.key.get_pressed()
         # # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
         #
-        # pressed_keys = pygame.key.get_pressed()
-        # # TODO: If K_LEFT is pressed move the fighter left 3
-        # # TODO: If K_RIGHT is pressed move the fighter right 3
 
-
-        # TODO 11: Use your Pong game for how you drew the Ball to:
+        # TODO 11: See your Pong game for how you drew the Ball to:
         #  TODO: Draw the fighter.
         #  NOTE: At this point your fighter should appear on the screen.
         fighter.draw()
@@ -202,7 +211,7 @@ def main():
         # #     TODO: "break" out of the game loop (to stop the program).
         #
 
-        # TODO 5: Use the example from your Pong game to:
+        # TODO 5: See your Pong game for how to:
         #   TODO: Update the pygame display.
         #   NOTE:  Your screen will "lock up" until you have done the NEXT TODO.
         pygame.display.update()
