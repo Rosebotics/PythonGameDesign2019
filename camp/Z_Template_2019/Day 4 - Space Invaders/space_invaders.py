@@ -3,18 +3,26 @@ from pygame.locals import *
 
 
 class Missile:
-    def __init__(self, screen, x):
-        # Store the data.  Initialize:   y to 591   and   exploded to False.
-        pass
+    def __init__(self, screen, x, y):
+        # TODO 25:  See your Fighter class to see how to:
+        #   TODO: Store the  screen  x  y   in
+        #   TODO:   self.screen   self.x   self.y
+        self.screen = screen
+        self.x = x
+        self.y = y
+
+        # TODO later: Set exploded to False.
 
     def move(self):
-        # Make self.y 5 smaller than it was (which will cause the Missile to move UP).
-        pass
+        # TODO 27:  Make self.y   5 smaller   than it was (which will cause the Missile to move UP).
+        self.y = self.y - 5
 
     def draw(self):
-        # Draw a horizontal, 1-pixel thick, 8 pixels long, red line on the screen,
-        # where the line starts at the current position of this Missile.
-        pass
+        # TODO 26:  See the example on the whiteboard to:
+        #   TODO: Draw a horizontal, 1-pixel thick, 8 pixels long, red line on the screen,
+        #   TODO: where the line starts at the current position of this Missile.
+        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y + 8), 1)
+
 
 class Fighter:
     def __init__(self, screen, x, y):
@@ -30,7 +38,8 @@ class Fighter:
         self.image = pygame.image.load("fighter.png").convert()
         self.image.set_colorkey((255, 255, 255))
 
-        # Set   self.missiles   to the empty list.
+        # TODO 28:  Set   self.missiles   to the empty list, that is, to   []
+        self.missiles = []
 
 
     def draw(self):
@@ -39,16 +48,22 @@ class Fighter:
         #   HINT:  you will be using   self.image   and   self.x   and   self.y.
         self.screen.blit(self.image, (self.x, self.y))
 
+        # TODO 30:  See how you looped through each badguy in the  draw  method of EnemyFleet to:
+        #   TODO: Loop through   self.missiles   and   draw each missile and also move each missile.
+        for missile in self.missiles:
+            missile.draw()
+            missile.move()
+
     def fire(self):
-        # Construct a new Missile 50 pixels to the right of this Fighter.
-        # Append that Missile to this Fighter's list of Missile objects.
-        pass
+        # TODO 29:  See how you appended Ball objects to your balllist in Pong to:
+        #   TODO: Construct a new Missile 50 pixels to the right of this Fighter and at y position 591.
+        #   TODO: Append that Missile to self.missiles.
+        self.missiles.append(Missile(self.screen, self.x + 50, 591))
 
     def remove_exploded_missles(self):
-        # for k in range(len(self.missiles) - 1, -1, -1):
-            # if self.missiles[k].exploded or self.missiles[k].y < 0:
-                # del self.missiles[k]
-        pass
+        for k in range(len(self.missiles) - 1, -1, -1):
+            if self.missiles[k].exploded or self.missiles[k].y < 0:
+                del self.missiles[k]
 
 
 class Badguy:
@@ -202,9 +217,12 @@ def main():
             fighter.x = fighter.x + 5
 
 
-        # pressed_keys = pygame.key.get_pressed()
-        # # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
-        #
+        # TODO 31: See how you checked if the K_LEFT key was pressed just above to:
+        #   TODO: Checked if pressed_keys[K_SPACE] is True,
+        #   TODO: and if so, then fire a missile by using the  fighter.fire()  method.
+        if pressed_keys[K_SPACE]:
+            fighter.fire()
+
 
         # TODO 11: See your Pong game for how you drew the Ball to:
         #  TODO: Draw the fighter.
@@ -224,9 +242,10 @@ def main():
         # # TODO: Draw the scoreboard
         #
         #
-        # # TODO: For each missle in the fighter missiles
-        # # TODO: Move the missle
-        # # TODO: Draw the missle
+        # TODO 27: Use the example of how you drew all the Badguys in the EnemyFleet class to:
+        #   TODO: Loop through each missile in the fighter missiles:
+        #   TODO: Move the missle
+        #   TODO: Draw the missle
         #
         #
         # # TODO: For each badguy in the enemy badguys
