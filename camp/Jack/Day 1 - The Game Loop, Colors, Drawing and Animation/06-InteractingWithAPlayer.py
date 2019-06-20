@@ -37,7 +37,7 @@ while True:
     if circleX < 0:
         circleSpeed = 5
     # fill background before drawing
-    screen.fill((backgroundColor))
+    screen.fill(backgroundColor)
 
     pygame.draw.circle(screen, CircleColor, (circleX, 150), CircleRadius)
     pygame.draw.rect(screen, (255, 0, 0), (600, rectY, 20, 75))
