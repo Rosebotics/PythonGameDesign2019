@@ -31,6 +31,12 @@ while True:
     if pressed_keys [K_DOWN]:
         rectY = rectY + rect_speed
 
+    if pressed_keys[K_s]:
+        rect2Y = rect2Y + rect_speed
+    if pressed_keys[K_w]:
+        rect2Y = rect2Y - rect_speed
+
+
     pygame.draw.circle(screen, CircleColor, (300, 150), CircleRadius)
     pygame.draw.rect(screen, (60, 180, 0), (600, rectY, 20, 75))
 
