@@ -26,11 +26,16 @@ class Fighter:
     def __init__(self, screen, x, y):
         pass
         # TODO 7:  See your Ball class to see how to:
+        self.screen = screen
+        self.x = x
+        self.y = y
         #   TODO: Store the  screen  x  y   in
         #   TODO:   self.screen   self.x   self.y
 
         # TODO 8:  See the example on images (on the whiteboard) to see how to:
         #   TODO: Load the file  "fighter.png"  as the image. and set its colorkey to white.
+        self.image = pygame.image.load("fighter.png").convert()
+        self.image.set_colorkey((255,255,255))
 
         # TODO 28:  Set   self.missiles   to the empty list, that is, to   []
 
@@ -38,6 +43,8 @@ class Fighter:
     def draw(self):
         pass
         # TODO 9:  See the example on images (on the whiteboard) to see how to:
+
+        self.screen.blit(self.image,(self.x,self.y))
         #   TODO:  Draw this Fighter, using its image at its current (x, y) position.
         #   HINT:  you will be using   self.image   and   self.x   and   self.y.
 
@@ -60,20 +67,35 @@ class Fighter:
 class Badguy:
     def __init__(self, screen, x, y):
         pass
+
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.image = pygame.image.load("badguy.png").convert()
+        self.image.set_colorkey((0,0,0))
         # TODO 13:  See your Fighter class to see how to:
+
+
         #   TODO: Store the  screen  x  y   in
         #   TODO:   self.screen   self.x   self.y
         #   TODO: Load the file  "badguy.png"  as the image. and set its colorkey to BLACK (not white).
 
         # TODO 19: Make a self.speed and set it to 1.
+        self.speed = 1
 
         # TODO 23:  Set    self.original_x    to   self.x.
         #           Set    self.is_dead       to   False.
+        self.original_x = self.x
+        self.is_dead = False
 
     def move(self):
         pass
         # TODO 20:  See how your Ball moved in your Pong game to:
         #   TODO: Make this move per its self.xspeed.
+
+        self.x = self.x + self.speed
+
+
 
         # TODO 24: If   self.xspeed > 0  (so the Badguy is moving to the right)
         #          and   self.x  is bigger than   self.original_x + 100, then
@@ -82,9 +104,11 @@ class Badguy:
         # TODO:  Then do similarly if   self.xspeed < 0 (but comparing self.x to   self.original - 100   in that case).
         # NOTE: At this point the enemy fleet should bounce (like the Ball bounced) in the x-direction
         #       and go down a bit when it bounces.
-
+        self.speed = self.speed *-1
+        self.y = self.y - 15
     def draw(self):
         pass
+        self.screen.blit(self.image,(self.x,self.y))
         # TODO 14:  See the example from your Fighter class to:
         #   TODO: Draw this Badguy, using its image at its current (x, y) position.
 
@@ -112,11 +136,20 @@ class EnemyFleet:
         pass
         # TODO 21:  See how you made each Badguy   draw   (in the  draw  method just below this method) to:
         #   TODO: Loop through   self.badguys   and   move each badguy.
+        for b in self.badguys:
+            b.move()
 
     def draw(self):
         pass
         # TODO 16:  See how you used your  ballist   to draw each Ball that you had, to (here):
         #   TODO: Loop through   self.badguys   and   draw each badguy.
+
+        for b in self.badguys:
+            b.draw()
+
+
+
+
 
     def remove_dead_badguys(self):
         for k in range(len(self.badguys) - 1, -1, -1):
@@ -142,6 +175,11 @@ class Scoreboard:
 
 def main():
     pass
+    pygame.init()
+    clock = pygame.time.Clock()
+    pygame.display.set_caption("Invaders of Mars")
+    screen = pygame.display.set_mode( (1040,1050))
+
     # TODO 2:  See your Pong program for how to:
     #  TODO: Initialize pygame.
     #  TODO: make a Clock.
@@ -150,19 +188,31 @@ def main():
 
     # TODO 10: See how you made a Ball in your Pong game to:
     #  TODO: Create a Fighter (called fighter) at location  320, 590.
+    fighter = Fighter(screen,320,590)
 
     # TODO 17: Set    enemy_rows    to an initial value of 3
     #   TODO: and set   enemy   to an   EnemyFleet(screen, enemy_rows).
+    enemy_rows = 3
+    enemy = EnemyFleet(screen, enemy_rows)
 
     # TODO: Create a Scoreboard, called scoreboard, using the screen at location 5, 5
 
     # TODO 3:  See the example from your Pong game to:
     #   TODO: Make a   while True:    loop.
+    while True:
+        backgroundColor=(0,0,0)
+        screen.fill(backgroundColor)
+
 
         # TODO 4: See the example from your Pong game to (INSIDE your  while True:  loop):
         #   TODO: Fill the screen with black, which is (0, 0, 0).
 
         # TODO 6:  See the example from your Pong game to (still INSIDE your  while True:  loop):
+        clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
         #   TODO: Make the clock tick 60 units.
         #   TODO: Add a   for event in pygame.event.get():  loop
         #   TODO: whose insides checks if the event.type == pygame.QUIT
@@ -170,10 +220,21 @@ def main():
         #   NOTE: At this point your game should show a black screen and you can click the X to stop the game.
 
         # TODO 12:  See how you used the arrow keys to move the paddles in your Pong game to:
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[K_LEFT] and fighter.x > -0:
+            fighter.x=fighter.x-3
+
+        if pressed_keys[K_RIGHT] and fighter.x < 940:
+            fighter.x=fighter.x+3
+
+
+
+
+
         #   TODO: Set   pressed_keys   to the keys that have been pressed.
         #   TODO: If K_LEFT is pressed and   fighter.x > -50  , move the fighter left 3 (by using  fighter.x)
         #   TODO: If K_RIGHT is pressed and  fighter.x < 590  , move the fighter right 3 (by using fighter.x).
-        #   NOTE: At this point you should be able to move the figher left and right.
+        #   NOTE: At this point you should be able to move the fighter left and right.
 
         # TODO 31: See how you checked if the K_LEFT key was pressed just above to:
         #   TODO: Checked if pressed_keys[K_SPACE] is True,
@@ -182,14 +243,18 @@ def main():
 
         # TODO 11: See your Pong game for how you drew the Ball to:
         #  TODO: Draw the fighter.
+        fighter.draw()
         #  NOTE: At this point your fighter should appear on the screen.
         #
         # TODO 22. See how you made your fighter draw (in the line above) to:
         #   TODO: Make the  enemy  move.
+        enemy.move()
         #   NOTE: At this time, the enemy should move to the right slowly.
 
         # TODO 18: Use the example above for how you drew your fighter to:
         #   TODO: Draw the enemy.
+        enemy.draw()
+
         #   NOTE: At this time the enemy fleet should appear on your screen.
 
         # TODO: Draw the scoreboard
@@ -219,7 +284,11 @@ def main():
 
         # TODO 5: See your Pong game for how to:
         #   TODO: Update the pygame display.
+        pygame.display.update()
+
+
         #   NOTE:  Your screen will "lock up" until you have done the NEXT TODO.
 
 # TODO 1: Call main.
+main()
 
