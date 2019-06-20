@@ -10,10 +10,10 @@ class Missile:
         self.y = 591
         self.exploded = False
     def move(self):
-        self.y = self.y -100
+        self.y = self.y -10
 
     def draw(self):
-        pygame.draw.line(self.screen, (255, 0, 0), (self.x, self.y), (self.x, self.y + 8), 1)
+        pygame.draw.line(self.screen, (255, 0, 255), (self.x, self.y), (self.x, self.y + 800), 1)
 
 
 
@@ -90,7 +90,7 @@ class EnemyFleet:
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    pygame.display.set_caption("Space Invaders")
+    pygame.display.set_caption("Cameron Tews's Space Invaders")
     screen = pygame.display.set_mode((640, 650))
 
 
