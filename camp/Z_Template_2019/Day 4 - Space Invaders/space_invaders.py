@@ -66,19 +66,28 @@ class Badguy:
         # TODO 19: Make a self.speed and set it to 1.
         self.xspeed = 1
 
-        # Set   dead to False   and   original_x to x   and move_right to True.
-        # Load the file  "badguy.png"  as the image. and set its colorkey to black.
-        pass
+        # TODO 23:  Set    self.original_x    to   self.x.
+        self.original_x = self.x
 
     def move(self):
         # TODO 20:  See how your Ball moved in your Pong game to:
         #   TODO: Make this move per its self.xspeed.
         self.x = self.x + self.xspeed
-        
-        #   TODO: Change its self.speed appropriately if self.x is negative or too big.
-        #
-        # if self.x < 0 or self.x > 1050:
-        #     self.xspeed = self.xspeed * -1
+
+        # TODO 24: If   self.xspeed > 0  (so the Badguy is moving to the right)
+        #          and   self.x  is bigger than   self.original_x + 100, then
+        #   TODO: Make the Badguy reverse its direction (by multiplying self.xspeed by -1), and
+        #   TODO: Make the Badguy move down 15 (by increasing its self.y by 15).
+        # TODO:  Then do similarly if   self.xspeed < 0 (but comparing self.x to   self.original - 100   in that case).
+        # NOTE: At this point the enemy fleet should bounce (like the Ball bounced) in the x-direction
+        #       and go down a bit when it bounces.
+        if self.xspeed > 0 and self.x > self.original_x + 100:
+            self.xspeed = self.xspeed * -1
+            self.y = self.y + 15
+
+        if self.xspeed < 0 and self.x < self.original_x - 100:
+            self.xspeed = self.xspeed * -1
+            self.y = self.y + 15
 
     def draw(self):
         # TODO 14:  See the example from your Fighter class to:
@@ -98,7 +107,7 @@ class EnemyFleet:
         self.badguys = []
         for j in range(enemy_rows):
             for k in range(8):
-                self.badguys.append(Badguy(screen, 80 * k, 50 * j + 20))
+                self.badguys.append(Badguy(screen, 200 + (80 * k), 50 * j + 20))
 
     def is_defeated(self):
         # Return True if the number of badguys in this Enemy Fleet is 0,
