@@ -49,17 +49,13 @@ class Badguy:
         self.image = pygame.image.load("badguy.png").convert()
         self.image.set_colorkey((0, 0, 0))
         self.original_x = x
-        self.moving_right = True
+        self.speed = 2
 
     def move(self):
-        if self.moving_right:
-            self.x = self.x + 2
-            if self.x > self.original_x + 100:
-                self.moving_right = False
-        else:
-            self.x = self.x - 2
-            if self.x < self.original_x - 100:
-                self.moving_right = True
+        self.x = self.x + self.speed
+        if self.x > self.original_x + 100 or self.x < self.original_x - 100:
+            self.speed = self.speed * -1
+
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))

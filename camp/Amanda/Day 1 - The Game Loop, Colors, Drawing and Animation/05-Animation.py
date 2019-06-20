@@ -23,10 +23,8 @@ while True:
     screen.fill(backgroundColor)
 
     rectY = rectY + rectSpeed
-    if rectY > 405:
-        rectSpeed = -5
-    elif rectY < 0:
-        rectSpeed = 5
+    if rectY > 405 or rectY < 0:
+        rectSpeed = rectSpeed * -1
 
     pygame.draw.circle(screen, circleColor, (300, 150), circleRadius)
     pygame.draw.rect(screen, (255, 255, 0), (600, rectY, 20, 75))
