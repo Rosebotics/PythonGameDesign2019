@@ -93,11 +93,20 @@ def main():
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Space Invaders")
-    screen = pygame.display.set_mode((640, 650))
+    screen = pygame.display.set_mode((1040, 1050))
 
-    # TODO: Set    enemy_rows    to an initial value of 3.
-    # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
-    # TODO: Create a Fighter (called fighter) at location  320, 590
+    # done 2:  See your Pong program for how to:
+    #  done TODO: Initialize pygame.
+    # done TODO: make a Clock.
+    # done TODO: Set the caption to a title you like, e.g. ":0 SPACE INVADERS!!!!! :0"
+    # done TODO: Set the   screen  by setting its   mode   to have size   1040 x 1050.
+
+    # TODO 10: See how you made a Ball in your Pong game to:
+    #  TODO: Create a Fighter (called fighter) at location  320, 590.
+
+    # TODO 17: Set    enemy_rows    to an initial value of 3
+    #   TODO: and set   enemy   to an   EnemyFleet(screen, enemy_rows).
+    #   TODO: Create a Fighter (called fighter) at location  320, 590
 
     while True:
         clock.tick(60)
