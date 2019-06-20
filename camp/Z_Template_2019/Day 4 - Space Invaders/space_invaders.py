@@ -11,7 +11,8 @@ class Missile:
         self.x = x
         self.y = y
 
-        # TODO later: Set exploded to False.
+        # TODO 33: Set   self.is_exploded   to False (the missile starts out unexploded).
+        self.is_exploded = False
 
     def move(self):
         # TODO 27:  Make self.y   5 smaller   than it was (which will cause the Missile to move UP).
@@ -60,9 +61,10 @@ class Fighter:
         #   TODO: Append that Missile to self.missiles.
         self.missiles.append(Missile(self.screen, self.x + 50, 591))
 
-    def remove_exploded_missles(self):
+    def remove_exploded_missiles(self):
+        # TODO 34:  Ask your teacher to explain the lines below.
         for k in range(len(self.missiles) - 1, -1, -1):
-            if self.missiles[k].exploded or self.missiles[k].y < 0:
+            if self.missiles[k].is_exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
 
 
@@ -82,7 +84,10 @@ class Badguy:
         self.xspeed = 1
 
         # TODO 23:  Set    self.original_x    to   self.x.
+        #           Set    self.is_dead       to   False.
         self.original_x = self.x
+        self.is_dead = False
+
 
     def move(self):
         # TODO 20:  See how your Ball moved in your Pong game to:
@@ -110,10 +115,11 @@ class Badguy:
         self.screen.blit(self.image, (self.x, self.y))
 
     def hit_by(self, missile):
-        # Return True if a 70x45 rectangle at this Badguy's current position
-        #   collides with a point the given missile's current position.
-        # Return False otherwise.
-        pass
+        # TODO 35:  See the example on the board to see how to:
+        #   TODO: Return True if a 70x45 rectangle at this Badguy's current position
+        #         collides with a point the given missile's current position.
+        #         Return False otherwise.
+        return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
 
 
 class EnemyFleet:
@@ -220,9 +226,9 @@ def main():
         # TODO 31: See how you checked if the K_LEFT key was pressed just above to:
         #   TODO: Checked if pressed_keys[K_SPACE] is True,
         #   TODO: and if so, then fire a missile by using the  fighter.fire()  method.
+        #   NOTE: At this point firing missiles should appear when you press the SPACE bar.
         if pressed_keys[K_SPACE]:
             fighter.fire()
-
 
         # TODO 11: See your Pong game for how you drew the Ball to:
         #  TODO: Draw the fighter.
@@ -239,33 +245,36 @@ def main():
         #   NOTE: At this time the enemy fleet should appear on your screen.
         enemy.draw()
 
-        # # TODO: Draw the scoreboard
-        #
-        #
-        # TODO 27: Use the example of how you drew all the Badguys in the EnemyFleet class to:
-        #   TODO: Loop through each missile in the fighter missiles:
-        #   TODO: Move the missle
-        #   TODO: Draw the missle
-        #
-        #
-        # # TODO: For each badguy in the enemy badguys
-        # #     TODO: For each missle in the fighter missiles
-        # #         TODO: If the badguy is hit by the missle
-        # #             TODO: Mark the badguy as dead = True
-        # #             TODO: Mark the missile as exploded = True
-        # #             TODO: Increment the score of the scoreboard by 100
-        #
-        # # TODO: Use the fighter to remove exploded missiles
-        # # TODO: Use the enemy to remove dead badguys
-        #
-        #
-        # # TODO: If the enemy id_defeated
-        # #     TODO: Increment the enemy_rows
-        # #     TODO: Create a new enemy with the screen and enemy_rows
-        #
-        # # TODO: Check to see if their is a badguy whose y > 545.  If so, the game is over and you should:
-        # #     TODO: Display a "game over" image, and
-        # #     TODO: "break" out of the game loop (to stop the program).
+        # TODO: Draw the scoreboard
+
+        # TODO 36:  Se your previous examples of   for   loops to see how to:
+        #   TODO: For each badguy in enemy
+        #     TODO: For each missile in fighter.missiles
+        #         TODO: If the badguy is hit by the missile (use the  hit_by  method):
+        #             TODO: Set the badguy's   is_dead   to True
+        #             TODO: set the missile's  is_exploded to  True
+        # At this point, missiles will start exploding the Badguys!
+        for badguy in enemy.badguys:
+            for missile in fighter.missiles:
+                if badguy.hit_by(missile):
+                    badguy.is_dead = True
+                    missile.is_exploded = True
+
+        # TODO 37: Use the fighter to remove exploded missiles
+        #  TODO:   Use the enemy to remove dead badguys
+        #  HINT:   This requires just 2 lines of code!
+        fighter.remove_exploded_missiles()
+        enemy.remove_dead_badguys()
+
+        # TODO: Increment the score of the scoreboard by 100
+
+        # TODO: If the enemy id_defeated
+        #     TODO: Increment the enemy_rows
+        #     TODO: Create a new enemy with the screen and enemy_rows
+
+        # TODO: Check to see if their is a badguy whose y > 545.  If so, the game is over and you should:
+        #     TODO: Display a "game over" image, and
+        #     TODO: "break" out of the game loop (to stop the program).
         #
 
         # TODO 5: See your Pong game for how to:
