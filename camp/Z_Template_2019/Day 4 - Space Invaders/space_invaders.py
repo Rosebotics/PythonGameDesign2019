@@ -92,6 +92,22 @@ class EnemyFleet:
                 del self.badguys[k]
 
 
+class Scoreboard:
+    def __init__(self, screen, x, y):
+        # TODO: Save the screen to a field
+        # TODO: Save the x and y to fields
+        # TODO: Initialize a score field with a value of 0
+        # TODO: Create a font object with a 30 point font (this is new)
+        pass
+
+
+    def draw(self):
+        # TODO: Convert the score number into a string called as_text using the format "Score: " + number
+        # TODO: Using the font object convert the string into an image that can be placed onto the screen, call it as_image
+        # TODO: Using the screen blit as_image onto the location self.x and self.y
+        pass
+
+
 def main():
     pygame.init()
     clock = pygame.time.Clock()
@@ -104,6 +120,8 @@ def main():
     enemy_rows = 3
     enemy = EnemyFleet(screen, enemy_rows)
     fighter = Fighter(screen, 320, 590)
+
+    # TODO: Create a Scoreboard, called scoreboard, using the screen at location 5, 5
 
     while True:
         clock.tick(60)
@@ -121,6 +139,7 @@ def main():
 
         # TODO: Move the enemy
         # TODO: Draw the enemy
+        # TODO: Draw the scoreboard
 
 
         # TODO: For each missle in the fighter missiles
@@ -133,7 +152,7 @@ def main():
         #         TODO: If the badguy is hit by the missle
         #             TODO: Mark the badguy as dead = True
         #             TODO: Mark the missile as exploded = True
-
+        #             TODO: Increment the score of the scoreboard by 100
 
         # TODO: Use the fighter to remove exploded missiles
         # TODO: Use the enemy to remove dead badguys
@@ -143,7 +162,11 @@ def main():
         #     TODO: Increment the enemy_rows
         #     TODO: Create a new enemy with the screen and enemy_rows
 
+        # TODO: Check to see if their is a badguy whose y > 545.  If so, the game is over and you should:
+        #     TODO: Display a "game over" image, and
+        #     TODO: "break" out of the game loop (to stop the program).
+
         pygame.display.update()
 
-        # TODO: Cll to main.
+# TODO: Call to main.
 main()
