@@ -4,8 +4,8 @@ import sys
 from pygame.locals import *
 
 screenSize = (640, 480)
-backgroundColor = (234, 19, 210)
-circleColor = (0, 129, 9)
+backgroundColor = (200, 255, 10)
+circleColor = (10, 0, 50)
 circleRadius = 20
 
 rectY = 100
@@ -32,6 +32,6 @@ while True:
 
 
      pygame.draw.circle(screen, circleColor , (300, 150), circleRadius)
-     pygame.draw.rect(screen, (255, 255, 0), (600, rectY, 20, 75))
+     pygame.draw.rect(screen, (255, 10, 10), (600, rectY, 20, 75))
 
      pygame.display.update()
