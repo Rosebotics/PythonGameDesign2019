@@ -53,7 +53,16 @@ class Fighter:
 
 class Badguy:
     def __init__(self, screen, x, y):
-        # Store the data.
+        #  TODO 13:  See your Fighter class to see how to:
+        #    TODO: Store the  screen  x  y   in
+        #    TODO:   self.screen   self.x   self.y
+        #   TODO: Load the file  "badguy.png"  as the image. and set its colorkey to BLACK (not white).
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.image = pygame.image.load("badguy.png").convert()
+        self.image.set_colorkey((0, 0, 0))
+
         # Set   dead to False   and   original_x to x   and move_right to True.
         # Load the file  "badguy.png"  as the image. and set its colorkey to black.
         pass
@@ -64,8 +73,9 @@ class Badguy:
         pass
 
     def draw(self):
-        # Draw this Badguy, using its image at its current (x, y) position.
-        pass
+        # TODO 14:  See the example from your Fighter class to:
+        #   TODO: Draw this Badguy, using its image at its current (x, y) position.
+        self.screen.blit(self.image, (self.x, self.y))
 
     def hit_by(self, missile):
         # Return True if a 70x45 rectangle at this Badguy's current position
@@ -76,12 +86,12 @@ class Badguy:
 
 class EnemyFleet:
     def __init__(self, screen, enemy_rows):
+        # TODO 15: Ask your teacher to explain the next lines of code.
         self.badguys = []
         for j in range(enemy_rows):
             for k in range(8):
                 self.badguys.append(Badguy(screen, 80 * k, 50 * j + 20))
 
-    @property
     def is_defeated(self):
         # Return True if the number of badguys in this Enemy Fleet is 0,
         # otherwise return False.
@@ -92,12 +102,14 @@ class EnemyFleet:
         pass
 
     def draw(self):
-        # Make each badguy in this EnemyFleet draw itself.
-        pass
+        # TODO 16:  See how you used your  ballist   to draw each Ball that you had, to (here):
+        #   TODO: Loop through   self.badguys   and   draw each badguy.
+        for badguy in self.badguys:
+            badguy.draw()
 
     def remove_dead_badguys(self):
         for k in range(len(self.badguys) - 1, -1, -1):
-            if self.badguys[k].dead:
+            if self.badguys[k].is_dead:
                 del self.badguys[k]
 
 
@@ -133,11 +145,10 @@ def main():
     #  TODO: Create a Fighter (called fighter) at location  320, 590.
     fighter = Fighter(screen, 320, 590)
 
-    # TODO: Set    enemy_rows    to an initial value of 3.
-    # enemy_rows = 3
-    # enemy = EnemyFleet(screen, enemy_rows)
-
-    # TODO: Create an EnemyFleet object (called enemy) with the screen and enemy_rows
+    # TODO 17: Set    enemy_rows    to an initial value of 3
+    #   TODO: and set   enemy   to an   EnemyFleet(screen, enemy_rows).
+    enemy_rows = 3
+    enemy = EnemyFleet(screen, enemy_rows)
 
     # TODO: Create a Scoreboard, called scoreboard, using the screen at location 5, 5
 
@@ -182,7 +193,12 @@ def main():
         fighter.draw()
         #
         # # TODO: Move the enemy
-        # # TODO: Draw the enemy
+
+        # TODO 18: Use the example above for how you drew your fighter to:
+        #   TODO: Draw the enemy.
+        #   NOTE: At this time the enemy fleet should appear on your screen.
+        enemy.draw()
+
         # # TODO: Draw the scoreboard
         #
         #
