@@ -25,11 +25,8 @@ while True:
 
 
      rectY = rectY + rectSpeed
-     if rectY > 485:
-         rectSpeed = -1
-     elif rectY < 0:
-        rectSpeed = 1
-     print(rectY)
+     if rectY > 405 or rectY < 0:
+         rectSpeed = rectSpeed * -1
 
 
 
