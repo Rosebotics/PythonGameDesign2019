@@ -53,9 +53,9 @@ class Fighter:
 
 class Badguy:
     def __init__(self, screen, x, y):
-        #  TODO 13:  See your Fighter class to see how to:
-        #    TODO: Store the  screen  x  y   in
-        #    TODO:   self.screen   self.x   self.y
+        # TODO 13:  See your Fighter class to see how to:
+        #   TODO: Store the  screen  x  y   in
+        #   TODO:   self.screen   self.x   self.y
         #   TODO: Load the file  "badguy.png"  as the image. and set its colorkey to BLACK (not white).
         self.screen = screen
         self.x = x
@@ -63,14 +63,22 @@ class Badguy:
         self.image = pygame.image.load("badguy.png").convert()
         self.image.set_colorkey((0, 0, 0))
 
+        # TODO 19: Make a self.speed and set it to 1.
+        self.xspeed = 1
+
         # Set   dead to False   and   original_x to x   and move_right to True.
         # Load the file  "badguy.png"  as the image. and set its colorkey to black.
         pass
 
     def move(self):
-        # Move 2 units in the current direction.
-        # Switch direction if this Badguy's position is more than 100 pixels from its original position.
-        pass
+        # TODO 20:  See how your Ball moved in your Pong game to:
+        #   TODO: Make this move per its self.xspeed.
+        self.x = self.x + self.xspeed
+        
+        #   TODO: Change its self.speed appropriately if self.x is negative or too big.
+        #
+        # if self.x < 0 or self.x > 1050:
+        #     self.xspeed = self.xspeed * -1
 
     def draw(self):
         # TODO 14:  See the example from your Fighter class to:
@@ -98,8 +106,10 @@ class EnemyFleet:
         pass
 
     def move(self):
-        # Make each badguy in this EnemyFleet move.
-        pass
+        # TODO 21:  See how you made each Badguy   draw   (in the  draw  method just below this method) to:
+        #   TODO: Loop through   self.badguys   and   move each badguy.
+        for badguy in self.badguys:
+            badguy.move()
 
     def draw(self):
         # TODO 16:  See how you used your  ballist   to draw each Ball that you had, to (here):
@@ -192,7 +202,10 @@ def main():
         #  NOTE: At this point your fighter should appear on the screen.
         fighter.draw()
         #
-        # # TODO: Move the enemy
+        # TODO 22. See how you made your fighter draw (in the line above) to:
+        #   TODO: Make the  enemy  move.
+        #   NOTE: At this time, the enemy should move to the right slowly.
+        enemy.move()
 
         # TODO 18: Use the example above for how you drew your fighter to:
         #   TODO: Draw the enemy.
