@@ -13,7 +13,7 @@ rectspeed = 5
 pygame.init()
 screen = pygame.display.set_mode(screensize)
 clock = pygame.time.Clock()
-while True
+while True:
     clock.tick(60)
     for event in pygame
 

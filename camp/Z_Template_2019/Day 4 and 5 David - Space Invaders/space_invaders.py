@@ -65,7 +65,7 @@ class Badguy:
         #   TODO:   self.screen   self.x   self.y
         #   TODO: Load the file  "badguy.png"  as the image. and set its colorkey to BLACK (not white).
 
-        # TODO 19: Make a self.speed and set it to 1.
+        # TODO 19: Make a self.xspeed and set it to 1.
 
         # TODO 23:  Set    self.original_x    to   self.x.
         #           Set    self.is_dead       to   False.
@@ -172,7 +172,7 @@ def main():
         # TODO 12:  See how you used the arrow keys to move the paddles in your Pong game to:
         #   TODO: Set   pressed_keys   to the keys that have been pressed.
         #   TODO: If K_LEFT is pressed and   fighter.x > -50  , move the fighter left 3 (by using  fighter.x)
-        #   TODO: If K_RIGHT is pressed and  fighter.x < 590  , move the fighter right 3 (by using fighter.x).
+        #   TODO: If K_RIGHT is pressed and  fighter.x < 1200  , move the fighter right 3 (by using fighter.x).
         #   NOTE: At this point you should be able to move the figher left and right.
 
         # TODO 31: See how you checked if the K_LEFT key was pressed just above to:
