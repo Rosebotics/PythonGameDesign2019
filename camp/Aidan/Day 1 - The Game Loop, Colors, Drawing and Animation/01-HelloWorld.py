@@ -1,10 +1,13 @@
 # Authors: David Mutchler, Dave Fisher, and many others before them.
 
 print('Hello, World')
-print('hi there')
-print('one', 'two', 'through my shoe')
+print('hi there')print('one', 'two', 'through my shoe')
 print(3 + 9)
 print('3 + 9', 'versus', 3 + 9)
+
+print('Hello, Donnie!  and Andrew!  and Alvina')
+print(3,607 + 122345678890)
+print()
 
 # TODO:  After we talk together about the above, add PRINT statements that print:
 # TODO:    1. A Hello message to a friend.

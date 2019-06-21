@@ -26,7 +26,7 @@ while True:
     screen.fill(backgroundcolor)
 
 
-    print(rectY)
+
 
     pygame.draw.circle(screen,(255,89,0),(560,440),20)
     pygame.draw.rect(screen,(255,255,255),(600,rectY,20,75))

@@ -10,7 +10,7 @@ backgroundColor = (0, 0, 0)
 circleColor = (255, 255, 255)
 circlePos = (320, 230)
 rectY = 100
-rectSpeed= 4
+rectSpeed = 4
 
 
 
@@ -32,7 +32,7 @@ while True:
         rectSpeed = 4
 
     print(rectY)
-    pygame.draw.circle(screen, (circleColor), (circlePos), 20)
+    pygame.draw.circle(screen, circleColor, circlePos, 20)
     pygame.draw.rect(screen, (circleColor), (600, rectY, 20, 75))
     pygame.draw.rect(screen, (circleColor), (40, rectY, 20, 75))
     pygame.display.update()
