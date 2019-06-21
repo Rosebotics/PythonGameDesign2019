@@ -6,18 +6,26 @@ class Missile:
     def __init__(self, screen, x, y):
         pass
         # TODO 25:  See your Fighter class to see how to:
+        self.screen = screen
+        self.x = x
+        self.y = y
         #   TODO: Store the  screen  x  y   in
         #   TODO:   self.screen   self.x   self.y
 
         # TODO 33: Set   self.is_exploded   to False (the missile starts out unexploded).
-
+        self.is_exploded = False
+        self.color = (34, 0, 182)
     def move(self):
         pass
-        # TODO 27:  Make self.y   5 smaller   than it was (which will cause the Missile to move UP).
+        # TODO 27:  Make self.y   5 smaller   than it was
+        #   (which will cause the Missile to move UP).
+        self.y = self.y - 5
 
     def draw(self):
         pass
         # TODO 26:  See the example on the whiteboard to:
+        pygame.draw.line(self.screen, self.color, (int(self.x), int(self.y)), (int(self.x), int(self.y + 8)), 20)
+
         #   TODO: Draw a horizontal, 1-pixel thick, 8 pixels long, red line on the screen,
         #   TODO: where the line starts at the current position of this Missile.
 
@@ -34,10 +42,12 @@ class Fighter:
 
         # TODO 8:  See the example on images (on the whiteboard) to see how to:
         self.image = pygame.image.load("fighter.png").convert()
-        self.image.set_colorkey ((255, 255, 255))
+        self.image.set_colorkey((255, 255, 255))
         #   TODO: Load the file  "fighter.png"  as the image. and set its colorkey to white.
 
         # TODO 28:  Set   self.missiles   to the empty list, that is, to   []
+        self.missiles = []
+        self.color = (122, 0, 122)
 
 
     def draw(self):
@@ -49,21 +59,29 @@ class Fighter:
 
         # TODO 30:  See how you looped through each badguy in the  draw  method of EnemyFleet to:
         #   TODO: Loop through   self.missiles   and   draw each missile and also move each missile.
-
+        for missiles in self.missiles:
+            missiles.move()
+            missiles.draw()
     def fire(self):
         pass
         # TODO 29:  See how you appended Ball objects to your balllist in Pong to:
-        #   TODO: Construct a new Missile 50 pixels to the right of this Fighter and at y position 591.
+        #   TODO: Construct a new Missile 50 pixels to the right of this Fighter and #    at y position 591.
         #   TODO: Append that Missile to self.missiles.
+        m = Missile(self.screen, self.x + 50, self.y)
+        self.missiles.append(m)
+
+
 
     def remove_exploded_missiles(self):
-        # TODO 34:  Ask your teacher to explain the lines below.
+      # TODO 34:  Ask your teacher to explain the lines below.
         for k in range(len(self.missiles) - 1, -1, -1):
             if self.missiles[k].is_exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
 
 
 class Badguy:
+
+
     def __init__(self, screen, x, y):
         pass
         # TODO 13:  See your Fighter class to see how to:
@@ -78,28 +96,31 @@ class Badguy:
         #   TODO: Load the file  "badguy.png"  as the image. and set its colorkey to BLACK (not white).
 
         # TODO 19: Make a self.speed and set it to 1.
-        self.speed = 1
+        self.xspeed = 1
 
         # TODO 23:  Set    self.original_x    to   self.x.
         #           Set    self.is_dead       to   False.
-        self.original_ = self.x
+        self.original_x = self.x
         self.is_dead = False
 
     def move(self):
         pass
         # TODO 20:  See how your Ball moved in your Pong game to:
-        self.x = self.x + self.speed
+        self.x = self.x + self.xspeed
         #   TODO: Make this move per its self.xspeed.
 
         # TODO 24: If   self.xspeed > 0  (so the Badguy is moving to the right)
         #          and   self.x  is bigger than   self.original_x + 100, then
         #   TODO: Make the Badguy reverse its direction (by multiplying self.xspeed
         #    by -1), and
-        self.speed * -1
+        if self.xspeed > 0 and self.x > self.original_x + 100:
+            self.xspeed = -self.xspeed
         #   TODO: Make the Badguy move down 15 (by increasing its self.y by 15).
-        self.y + 15
-        if self.speed < 0:
-            self.x < self.original -100
+            self.y = self.y + 15
+        if self.xspeed < 0 and self.x < self.original_x - 100:
+            self.xspeed = -self.xspeed
+            self.y = self.y + 15
+
 
         # TODO:  Then do similarly if   self.xspeed < 0 (but comparing self.x to
         #  self.original - 100   in that case).
@@ -118,6 +139,10 @@ class Badguy:
         #   TODO: Return True if a 70x45 rectangle at this Badguy's current position
         #         collides with a point the given missile's current position.
         #         Return False otherwise.
+        r = pygame.Rect(self.x, self.y, 70, 45)
+        c = r.collidepoint(missile.x + 50, missile.y)
+        return c
+
 
 class EnemyFleet:
     def __init__(self, screen, enemy_rows):
@@ -139,7 +164,6 @@ class EnemyFleet:
 
         for badguy in self.badguys:
             badguy.move()
-
 
     def draw(self):
         pass
@@ -163,12 +187,12 @@ class Scoreboard:
         # TODO: Create a font object with a 30 point font (this is new)
         pass
 
-
     def draw(self):
         # TODO: Convert the score number into a string called as_text using the format "Score: " + number
         # TODO: Using the font object convert the string into an image that can be placed onto the screen, call it as_image
         # TODO: Using the screen blit as_image onto the location self.x and self.y
         pass
+
 
 def main():
     pass
@@ -177,7 +201,6 @@ def main():
     pygame.display.set_caption("SPACE INVADERS 101: THE EASY PLAY")
     screen = pygame.display.set_mode((1040, 1050))
     clock = pygame.time.Clock()
-
 
     #  TODO: Initialize pygame.
     #  TODO: make a Clock.
@@ -203,9 +226,7 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-
-    #   loop
-
+        #   loop
 
         # TODO 4: See the example from your Pong game to (INSIDE your  while True:  loop):
         screen.fill((0, 0, 0))
@@ -228,7 +249,7 @@ def main():
         if pressed_keys[K_RIGHT]:
             fighter.x = fighter.x + 3
         if pressed_keys[K_LEFT]:
-            fighter.y = fighter.y - 3
+            fighter.x = fighter.x - 3
             fighter.x > -50
             fighter.y < 1000
 
@@ -241,6 +262,8 @@ def main():
         #   TODO: Checked if pressed_keys[K_SPACE] is True,
         #   TODO: and if so, then fire a missile by using the  fighter.fire()  method.
         #   NOTE: At this point firing missiles should appear when you press the SPACE bar.
+            pressed_keys[K_SPACE] is True
+            fighter.fire()
 
         # TODO 11: See your Pong game for how you drew the Ball to:
         fighter.draw()
@@ -267,11 +290,24 @@ def main():
         #         TODO: If the badguy is hit by the missile (use the  hit_by  method):
         #             TODO: Set the badguy's   is_dead   to True
         #             TODO: set the missile's  is_exploded to  True
-        # At this point, missiles will start exploding the Badguys!
+        # At this point,# missiles will start exploding the Badguys!
+        for badguy in enemy.badguys:
+            for m in fighter.missiles:
+                if badguy.hit_by(m):
+                    badguy.is_dead = True
+                    m.is_exploded = True
+
+
+
+
+
 
         # TODO 37: Use the fighter to remove exploded missiles
-        #  TODO:   Use the enemy to remove dead badguys
+        #  TODO:   Use the enemy to remove dead badguys        pygame.draw.line(self.screen, self.color, (int(self.x), int(self.y)), (int(self.x), int(self.y + 8)), 20)
         #  HINT:   This requires just 2 lines of code!
+        fighter.remove_exploded_missiles()
+        enemy.remove_dead_badguys()
+
 
         # TODO: Increment the score of the scoreboard by 100
 
@@ -288,6 +324,7 @@ def main():
         pygame.display.update()
         #   TODO: Update the pygame display.
         #   NOTE:  Your screen will "lock up" until you have done the NEXT TODO.
+
 
 # TODO 1: Call main.
 main()
