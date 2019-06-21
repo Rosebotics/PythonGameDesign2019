@@ -97,6 +97,8 @@ while True:
             rectY2 = rectY2 - rectSpeed
         if pressed_keys[K_s]:
             rectY2 = rectY2 + rectSpeed
+
+
         if rectY<0:
             rectY = 0
         if rectY2<0:
