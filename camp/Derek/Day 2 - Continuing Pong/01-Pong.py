@@ -104,11 +104,11 @@ while True:
     else:
         edge = X - 20
     if pygame.Rect(600,rectY,20,75).collidepoint(edge,Y):
-        XSpeed = -XSpeed*1
-       #YSpeed = -YSpeed
+       XSpeed = -XSpeed*1
+       YSpeed = -YSpeed
     if pygame.Rect(50, rectY2, 20, 75).collidepoint(edge,Y):
        XSpeed = -XSpeed*1
-       #YSpeed = -YSpeed
+       YSpeed = -YSpeed
 
     if Y < 0:
         YSpeed = -YSpeed
@@ -118,6 +118,7 @@ while True:
         YSpeed = -YSpeed
     if X >640:
         XSpeed = -XSpeed
+
 
 
     #pygame.draw.rect(screen, (255, 255, 0), pad1)
