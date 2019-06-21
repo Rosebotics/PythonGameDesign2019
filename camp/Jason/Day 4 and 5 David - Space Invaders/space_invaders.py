@@ -6,18 +6,24 @@ class Missile:
     def __init__(self, screen, x, y):
         pass
         # TODO 25:  See your Fighter class to see how to:
+        self.x = x
+        self.y = y
+        self.screen = screen
         #   TODO: Store the  screen  x  y   in
         #   TODO:   self.screen   self.x   self.y
 
         # TODO 33: Set   self.is_exploded   to False (the missile starts out unexploded).
+        self.is_exploded=False
 
     def move(self):
         pass
         # TODO 27:  Make self.y   5 smaller   than it was (which will cause the Missile to move UP).
+        self.y = self.y - 5
 
     def draw(self):
         pass
         # TODO 26:  See the example on the whiteboard to:
+        pygame.draw.line(self.screen,(0, 0, 255),(self.x, self.y),(self.x, self.y + 8),1)
         #   TODO: Draw a horizontal, 1-pixel thick, 8 pixels long, red line on the screen,
         #   TODO: where the line starts at the current position of this Missile.
 
@@ -36,26 +42,32 @@ class Fighter:
         # done TODO 8:  See the example on images (on the whiteboard) to see how to:
         self.image = pygame.image.load("fighter.png").convert()
         self.image.set_colorkey((255, 255, 255))
-        #  done TODO: Load the file  "fighter.png"  as the image. and set its colorkey to white.
+        #  done TODO: Load the file
 
-        # TODO 28:  Set   self.missiles   to the empty list, that is, to   []
 
+    # TODO 28:  Set   self.missiles   to the empty list, that is, to   []
+        self.missiles = []
 
     def draw(self):
         pass
         # done TODO 9:  See the example on images (on the whiteboard) to see how to:
         self.screen.blit(self.image,(self.x,self.y))
-        # done  TODO:  Draw this Fighter, using its image at its current (x, y) position.
+        # done  TODO:  Draw this Fighter, u
+        #             b.move()sing its image at its current (x, y) position.
         #   HINT:  you will be using   self.image   and   self.x   and   self.y.
 
-        # TODO 30:  See how you looped through each badguy in the  draw  method of EnemyFleet to:
-        #   TODO: Loop through   self.missiles   and   draw each missile and also move each missile.
-
-    def fire(self):
+        # done TODO 30:  See how you looped through each badguy in the  draw  method of EnemyFleet to:
+        for b in self.missiles:
+        #  done TODO: Loop through   self.missiles   and   draw each missile and also move each missile.
+            b.draw()
+            b.move()
         pass
-        # TODO 29:  See how you appended Ball objects to your balllist in Pong to:
-        #   TODO: Construct a new Missile 50 pixels to the right of this Fighter and at y position 591.
-        #   TODO: Append that Missile to self.missiles.
+    def fire(self):
+        # done TODO 29:  See how you appended Ball objects to your balllist in Pong to:
+        m = Missile(self.screen, self.x + 50, self.y)
+        self.missiles.append(m)
+        #  done TODO: Construct a new Missile 50 pixels to the right of this Fighter and at y position 591.
+        #  done TODO: Append that Missile to self.missiles.
 
     def remove_exploded_missiles(self):
         # TODO 34:  Ask your teacher to explain the lines below.
@@ -79,25 +91,32 @@ class Badguy:
         #   TODO: Load the file  "badguy.png"  as the image. and set its colorkey to BLACK (not white).
 
         # TODO 19: Make a self.speed and set it to 1.
-        self.speed = 1
+        self.xspeed = 1
 
         # TODO 23:  Set    self.original_x    to   self.x.
+        self.original_x = self.x
+        self.is_dead = False
         #           Set    self.is_dead       to   False.
 
     def move(self):
         pass
-        # TODO 20:  See how your Ball moved in your Pong game to:
-        self.x = self.x +  self.speed
-        #   TODO: Make this move per its self.xspeed.
+        # done TODO 20:  See how your Ball moved in your Pong game to:
+        self.x = self.x + self.xspeed
+        #  done TODO: Make this move per its self.xspeed.
 
-        # TODO 24: If   self.xspeed > 0  (so the Badguy is moving to the right)
+        # done TODO 24: If   self.xspeed > 0  (so the Badguy is moving to the right)
+        if self.xspeed > 0 and self.x >  self.original_x + 100:
+            self.xspeed = self.xspeed * -1
+            self.y = self.y +15
+        if self.xspeed < 0 and self.x < self.original_x - 100:
+            self.xspeed = self.xspeed * -1
+            self.y = self.y + 15
         #          and   self.x  is bigger than   self.original_x + 100, then
         #   TODO: Make the Badguy reverse its direction (by multiplying self.xspeed by -1), and
         #   TODO: Make the Badguy move down 15 (by increasing its self.y by 15).
         # TODO:  Then do similarly if   self.xspeed < 0 (but comparing self.x to   self.original - 100   in that case).
         # NOTE: At this point the enemy fleet should bounce (like the Ball bounced) in the x-direction
         #       and go down a bit when it bounces.
-
     def draw(self):
         pass
         # TODO 14:  See the example from your Fighter class to:
@@ -107,6 +126,9 @@ class Badguy:
     def hit_by(self, missile):
         pass
         # TODO 35:  See the example on the board to see how to:
+        r = pygame.Rect(self.x, self.y, 70, 45)
+        c = r.collidepoint(missile.x, missile.y)
+        return c
         #   TODO: Return True if a 70x45 rectangle at this Badguy's current position
         #         collides with a point the given missile's current position.
         #         Return False otherwise.
@@ -126,7 +148,9 @@ class EnemyFleet:
 
     def move(self):
         pass
-        # TODO 21:  See how you made each Badguy   draw   (in the  draw  method just below this method) to:
+        # TODO 21:  See how you made each Badguy   draw   (in the  draw  method just below this method)
+        for b in self.badguys:
+            b.move()
         #   TODO: Loop through   self.badguys   and   move each badguy.
 
     def draw(self):
@@ -212,27 +236,36 @@ def main():
         #   NOTE: At this point you should be able to move the figher left and right.
 
         # TODO 31: See how you checked if the K_LEFT key was pressed just above to:
+        if pressed_keys[K_SPACE]:
+            fighter.fire()
         #   TODO: Checked if pressed_keys[K_SPACE] is True,
         #   TODO: and if so, then fire a missile by using the  fighter.fire()  method.
         #   NOTE: At this point firing missiles should appear when you press the SPACE bar.
 
-        # TODO 11: See your Pong game for how you drew the Ball to:
+        # done TODO 11: See your Pong game for how you drew the Ball to:
         fighter.draw()
-        #  TODO: Draw the fighter.
+        # done TODO: Draw the fighter.
         #  NOTE: At this point your fighter should appear on the screen.
         #
-        # TODO 22. See how you made your fighter draw (in the line above) to:
-        #   TODO: Make the  enemy  move.
+        #  done TODO 22. See how you made your fighter draw (in the line above) to:
+        enemy.move()
+        #  doone TODO: Make the  enemy  move.
         #   NOTE: At this time, the enemy should move to the right slowly.
 
-        # TODO 18: Use the example above for how you drew your fighter to:
+        #  done TODO 18: Use the example above for how you drew your fighter to:
         enemy.draw()
-        #   TODO: Draw the enemy.
+        #  done TODO: Draw the enemy.
         #   NOTE: At this time the enemy fleet should appear on your screen.
 
-        # TODO: Draw the scoreboard
+        # done TODO: Draw the scoreboard
 
         # TODO 36:  Se your previous examples of   for   loops to see how to:
+        for badguy in enemy.badguys:
+            for m in fighter.missiles:
+                if badguy.hit_by(m):
+                    badguy.is_dead = True
+                    m.is_exploded = True
+
         #   TODO: For each badguy in enemy
         #     TODO: For each missile in fighter.missiles
         #         TODO: If the badguy is hit by the missile (use the  hit_by  method):
@@ -241,7 +274,13 @@ def main():
         # At this point, missiles will start exploding the Badguys!
 
         # TODO 37: Use the fighter to remove exploded missiles
-        #  TODO:   Use the enemy to remove dead badguys
+        fighter.remove_exploded_missiles()
+        enemy.remove_dead_badguys()
+
+        if len(enemy.badguys) ==  0:
+            enemy_rows += 1
+            enemy = EnemyFleet(screen, enemy_rows)
+    #  TODO:   Use the enemy to remove dead badguys
         #  HINT:   This requires just 2 lines of code!
 
         # TODO: Increment the score of the scoreboard by 100
