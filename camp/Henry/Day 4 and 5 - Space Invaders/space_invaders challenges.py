@@ -2,6 +2,28 @@ import pygame, sys, random, time
 from pygame.locals import *
 
 
+def play_sound(file_name):
+    pygame.mixer.music.load(file_name)
+    pygame.mixer.music.play(0)
+
+
+class Boss:
+    def __init__(self, screen, x, y):
+        self.screen = screen
+        self.x = x
+        self.image = pygame.image.load("boss.png").convert()
+        self.y = y
+        self.dead = False
+        self.missiles = []
+        self.speed = 5
+        self.image.set_colorkey((0, 0, 0))
+
+    def draw(self):
+        self.screen.blit(self.image, (self.x, self.y))
+
+
+
+
 class Missile:
     def __init__(self, screen, x):
         # Done: Save the screen into a field
@@ -24,6 +46,25 @@ class Missile:
         # Done: Draw a red line from x, y that is 8 pixels in height
 
 
+class EnemyMissile:
+    def __init__(self, screen, x, y):
+        # Done: Save the screen into a field
+        self.screen = screen
+        # Done: Save the x into a field
+        self.x = x
+        # Done: Set the y to 591 as a field (which is just above the fighter)
+        self.y = y
+        # Done: Set a field called exploded to False
+        self.exploded = False
+
+    def move(self):
+        # Done: Move the missile up 5
+        self.y = self.y + 5
+
+
+
+    def draw(self):
+        pygame.draw.line(self.screen, (0, 255, 0), (self.x, self.y), (self.x, self.y + 8), 1)
 
 
 class Fighter:
@@ -34,6 +75,7 @@ class Fighter:
         self.x = x
         self.y = y
         self.missiles = []
+        self.dead = False
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -46,6 +88,8 @@ class Fighter:
             if self.missiles[k].exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
 
+    def hit_by(self, missile):
+        return pygame.Rect(self.x, self.y, 100, 100).collidepoint(missile.x, missile.y)
 
 class Badguy:
     def __init__(self, screen, x, y):
@@ -57,12 +101,15 @@ class Badguy:
         self.image.set_colorkey((0, 0, 0))
         self.original_x = x
         self.speed = 2
+        self.missiles = []
 
     def move(self):
         self.x = self.x + self.speed
         if self.x > self.original_x + 100 or self.x < self.original_x - 100:
             self.speed = self.speed * -1
             self.y = self.y + 15
+        if random.randint(1, 500) < 2:
+            self.missiles.append(EnemyMissile(self.screen, self.x, self.y))
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -70,6 +117,10 @@ class Badguy:
     def hit_by(self, missile):
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
 
+    def remove_exploded_missiles(self):
+        for k in range(len(self.missiles) - 1, -1, -1):
+            if self.missiles[k].exploded or self.missiles[k].y < 0:
+                del self.missiles[k]
 
 class EnemyFleet:
     def __init__(self, screen, enemy_rows):
@@ -116,6 +167,7 @@ def main():
             pressed_keys = pygame.key.get_pressed()
             # Done: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
             if pressed_keys[K_SPACE] and event.type == KEYDOWN:
+                play_sound('pewpew.mp3')
                 fighter.fire()
             if event.type == QUIT:
                 sys.exit()
@@ -142,6 +194,13 @@ def main():
             missile.draw()
         # Done: For each badguy in the enemy badguys
         for badguy in enemy_fleet.badguys:
+            for enemyMissile in badguy.missiles:
+                if fighter.hit_by(enemyMissile):
+                    fighter.dead = True
+                    enemyMissile.exploded = True
+                else:
+                    enemyMissile.move()
+                    enemyMissile.draw()
             for missile in fighter.missiles:
                 if badguy.hit_by(missile):
                     badguy.dead = True
@@ -154,19 +213,23 @@ def main():
 
 
         # Done: If the enemy is_defeated
-
         #     Done: Increment the enemy_rows
         #     Done: Create a new enemy with the screen and enemy_rows
+
+
         if enemy_fleet.is_defeated:
             enemy_rows = enemy_rows + 1
             enemy_fleet = EnemyFleet(screen, enemy_rows)
+
+        if enemy_rows == 4:
+            Boss.draw()
 
 
 
         if not game_over:
             pygame.display.update()
             for badguy in enemy_fleet.badguys:
-                if badguy.y > 545:
+                if badguy.y > 545 or fighter.dead:
                     game_over = True
                     game_over_image = pygame.image.load("gameover.png").convert()
                     screen.blit(game_over_image, (170, 200))
