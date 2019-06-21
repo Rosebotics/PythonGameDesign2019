@@ -3,7 +3,7 @@ import pygame
 import sys
 from pygame.locals import *
 
-screenSize = (640, 480)
+screenSize = (640,480)
 backgroundColor = (0, 0, 0)
 circleColor = (255,255,0 )
 circleRadius = 20
