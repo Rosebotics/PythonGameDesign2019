@@ -62,8 +62,7 @@ ball = Ball(screen, 320, 240, 5, 2, (255, 255, 255), 20)
 
 while True:
     clock.tick(60)
-    pygame.display.set_caption("Pong!         score:"            )
-    #                                                + str(score))
+    pygame.display.set_caption("Pong")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -89,7 +88,6 @@ while True:
 
     if collided1 or collided2:
         ball.collided()
-
 
     pygame.draw.rect(screen, (255, 255, 255), (600, rectY, 20, 75))
     # rect 1
