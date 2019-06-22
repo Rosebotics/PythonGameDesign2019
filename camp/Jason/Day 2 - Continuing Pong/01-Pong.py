@@ -81,7 +81,7 @@ while True:
             rectY2 = rectY2 + rectSpeed
     x=x+xspeed
     y=y+yspeed
-    # fill background before drawingif pressed_keys[K_UP]:
+    #fill background before drawingif pressed_keys[K_UP]:
 
     screen.fill(backgroundColor)
 

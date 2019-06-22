@@ -277,7 +277,8 @@ def main():
         fighter.remove_exploded_missiles()
         enemy.remove_dead_badguys()
 
-        if len(enemy.badguys) ==  0:
+        if len(enemy.badguys) ==   \
+                0:
             enemy_rows += 1
             enemy = EnemyFleet(screen, enemy_rows)
     #  TODO:   Use the enemy to remove dead badguys
