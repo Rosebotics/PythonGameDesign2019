@@ -1,6 +1,4 @@
 # TODO: Copy all of your   05-Animation.py   program and put it below this comment.
-# hi katie
-# i see you in your sleeeep
 import pygame
 import sys
 from pygame.locals import *
