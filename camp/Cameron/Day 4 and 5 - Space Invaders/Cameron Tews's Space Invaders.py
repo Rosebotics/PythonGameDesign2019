@@ -35,10 +35,10 @@ class Fighter:
         self.screen = screen
         self.x = x
         self.y = y
-        self.width = 80
+        self.width = 140
         self.height = 80
         self.screen = screen
-        self.image = pygame.image.load("hurricane.png").convert()
+        self.image = pygame.image.load("spitfire.png").convert()
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         self.image.set_colorkey((255, 255, 255))
         self.x = x
@@ -71,7 +71,7 @@ class Badguy:
         self.height = 70
         self.image = pygame.image.load("STUKA.png").convert()
         self.image2 = pygame.transform.scale(self.image, (self.width, self.height))
-        self.image.set_colorkey((155, 255, 255))
+        self.image.set_colorkey((255, 255, 255))
         self.original_x = x
         self.speed = 2
         self.missiles = []
@@ -81,7 +81,7 @@ class Badguy:
         if self.x > self.original_x + 100 or self.x < self.original_x - 100:
             self.speed = self.speed * -1
             self.y = self.y + 15
-        if random.randint(1, 100) < 2:
+        if random.randint(1, 650) < 2:
             self.missiles.append(EnemyMissile(self.screen, self.x, self.y))
 
     def draw(self):
@@ -124,7 +124,7 @@ class EnemyFleet:
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    pygame.display.set_caption("Cameron Tews's Space Invaders")
+    pygame.display.set_caption("Cameron Tews's Battle of Britan")
     screen = pygame.display.set_mode((640, 650))
 
 
@@ -184,7 +184,7 @@ def main():
             for badguy in enemy_fleet.badguys:
                 if badguy.y > 545 or fighter.dead:
                     game_over = True
-                    game_over_image = pygame.image.load("gameover.png").convert()
+                    game_over_image = pygame.image.load("end of game.jpg").convert()
                     screen.blit(game_over_image, (170, 200))
                     pygame.display.update()
 
