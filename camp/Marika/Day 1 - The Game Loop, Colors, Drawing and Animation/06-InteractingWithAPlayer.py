@@ -29,9 +29,14 @@ while True:
             rectY1 = rectY1 - 5
         if pressed_keys[K_DOWN]:
             rectY1 = rectY1 + 5
-        if pressed_keys[K_w]
-            rectY2 = rectY2 -5
-        if pressed_keys[K_s]
+        if pressed_keys[K_w]:
+            rectY2 = rectY2 - 5
+        if pressed_keys[K_s]:
+            rectY2 = rectY2 + 5
+
+
+
+
 
 
     screen.fill((backgroundColor))

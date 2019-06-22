@@ -1,23 +1,8 @@
 import pygame
 import sys
-import random
+# import random
 # import time
 from pygame.locals import *
-
-points = 0
-
-
-def play_sound(file_name):
-    pygame.mixer.music.load(file_name)
-    pygame.mixer.music.play(0)
-
-
-def draw_text(screen, text, position, color, font='Pixel', size = 60):
-    font = pygame.font.SysFont(font, size)
-    textSurface = font.render(text, True, color)
-    rect = textSurface.get_rect()
-    rect.center = position
-    screen.blit(textSurface, rect)
 
 
 class Missile:
@@ -26,26 +11,17 @@ class Missile:
         self.x = x
         self.y = 591
         self.exploded = False
+        # TODO: Save the screen into a field
+        # TODO: Save the x into a field
+        # TODO: Set the y to 591 as a field (which is just above the fighter)
+        # TODO: Set a field called exploded to False
+        pass
 
     def move(self):
         self.y = self.y - 5
 
     def draw(self):
-        pygame.draw.line(self.screen, (255, 255, 100), (self.x, self.y), (self.x, self.y - 8), 2)
-
-
-class EnemyMissile:
-    def __init__(self, screen, x, y):
-        self.screen = screen
-        self.x = x
-        self.y = y
-        self.exploded = False
-
-    def move(self):
-        self.y = self.y + 5
-
-    def draw(self):
-        pygame.draw.line(self.screen, (255, 150, 255), (self.x, self.y), (self.x, self.y - 8), 2)
+        pygame.draw.line(self.screen,(255, 255, 100), (self.x, self.y),(self.x, self.y - 8), 2)
 
 
 class Fighter:
@@ -55,7 +31,6 @@ class Fighter:
         self.image.set_colorkey((255, 255, 255))
         self.x = x
         self.y = y
-        self.dead = False
         self.missiles = []
 
     def draw(self):
@@ -63,9 +38,6 @@ class Fighter:
 
     def fire(self):
         self.missiles.append(Missile(self.screen, self.x + 50))
-
-    def hit_by(self, missile):
-        return pygame.Rect(self.x, self.y, 100, 100).collidepoint(missile.x, missile.y)
 
     def remove_exploded_missiles(self):
         for k in range(len(self.missiles) - 1, -1, -1):
@@ -79,30 +51,22 @@ class Badguy:
         self.screen = screen
         self.x = x
         self.y = y
-        self.image = pygame.image.load("non-scary-alien.png").convert()
-        self.image.set_colorkey((255, 255, 255))
+        self.image = pygame.image.load("badguy.png").convert()
+        self.image.set_colorkey((0, 0, 0))
         self.original_x = x
         self.speed = 2
-        self.missiles = []
 
     def move(self):
         self.x = self.x + self.speed
         if self.x > self.original_x + 100 or self.x < self.original_x - 100:
             self.speed = self.speed * -1
             self.y = self.y + 15
-        if random.randint(1, 2000) < 2:
-            self.missiles.append(EnemyMissile(self.screen, self.x, self.y))
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
 
     def hit_by(self, missile):
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
-
-    def remove_exploded_missiles(self):
-        for k in range(len(self.missiles) - 1, -1, -1):
-            if self.missiles[k].exploded or self.missiles[k].y < 0:
-                del self.missiles[k]
 
 
 class EnemyFleet:
@@ -146,6 +110,7 @@ def main():
         clock.tick(60)
         for event in pygame.event.get():
             pressed_keys = pygame.key.get_pressed()
+            # TODO: If the event type is KEY DOWN and pressed_keys[K_SPACE} is True, then fire a missile
             if pressed_keys[K_SPACE] and event.type == KEYDOWN:
                 fighter.fire()
             if event.type == QUIT:
@@ -172,18 +137,8 @@ def main():
             missile.draw()
 
         for badguy in enemy_fleet.badguys:
-            for enemyMissile in badguy.missiles:
-                if fighter.hit_by(enemyMissile):
-                    fighter.dead = True
-                    enemyMissile.exploded = True
-                else:
-                    enemyMissile.move()
-                    enemyMissile.draw()
-
             for missile in fighter.missiles:
                 if badguy.hit_by(missile):
-                    global points
-                    points = points + 10
                     badguy.dead = True
                     missile.exploded = True
 
@@ -195,17 +150,15 @@ def main():
 
         if not game_over:
             pygame.display.update()
-            for badguy in enemy_fleet.badguys:
-                for enemyMissile in badguy.missiles:
-                    enemyMissile.move()
-                    enemyMissile.draw()
+        for badguy in enemy_fleet.badguys:
+            if badguy.y > 545:
+                game_over = True
+                game_over_image = pygame.image.load("gameover.png").convert()
+                screen.blit(game_over_image,(170, 200))
+                pygame.display.update()
 
-                if badguy.y > 545 or fighter.dead:
-                    game_over = True
-                    game_over_image = pygame.image.load("game-over.png").convert()
-                    pygame.transform.scale(game_over_image, (640, 650), screen)
-                    draw_text(screen, 'score:' + str(points), (320, 600), (225, 255, 255))
-                    pygame.display.update()
+
+
 
 
 main()
