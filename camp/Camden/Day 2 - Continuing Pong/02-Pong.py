@@ -98,9 +98,9 @@ while True:
            ball.collided()
 
 
-        if collided1 and len (balls) < 100:
+        if collided1 and len (balls) < 1:
             toAdd.append(Ball(screen,ball.x, ball.y, -random.randint(2,6), random.randint(1,3), (255, 255, 255), 20))
-        if collided2 and len (balls) < 100:
+        if collided2 and len (balls) < 1:
             toAdd.append(Ball(screen, ball.x, ball.y, random.randint(2, 6), random.randint(1, 3), (255, 255, 255), 20))
 
     for ball in toAdd:
@@ -110,7 +110,7 @@ while True:
 
     #pygame.draw.circle(screen, circleColor, (int(circleX), int(circleY)), circleRadius)
     #rect1
-    pygame.draw.rect(screen, (134, 200, 240), (rectX, rectY, 20, 75))
+    pygame.draw.rect(screen, (10, 130, 24), (rectX, rectY, 20, 75))
     #rect2
     pygame.draw.rect(screen, (20, 155, 255),  (rect2X, rect2Y, 20, 75))
 
