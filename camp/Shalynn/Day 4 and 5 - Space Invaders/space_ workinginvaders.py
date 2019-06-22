@@ -26,7 +26,7 @@ class Fighter:
     def __init__(self, screen, x, y):
         self.screen = screen
         self.image = pygame.image.load("rocket.png").convert()
-        self.image.set_colorkey((255, 255, 255))
+        self.image.set_colorkey((0, 255, 255))
         self.x = x
         self.y = y
         self.missiles = []
@@ -159,7 +159,7 @@ def main():
         #     TODO: Create a new enemy with the screen and enemy_rows
 
         if enemy_fleet.is_defeated:
-           enemy_rows = enemy_rows +1
+           enemy_rows = enemy_rows +2
            enemy_fleet = EnemyFleet(screen, enemy_rows)
 
 

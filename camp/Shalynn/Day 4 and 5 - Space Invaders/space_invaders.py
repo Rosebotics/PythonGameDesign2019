@@ -87,7 +87,7 @@ class Badguy:
         if self.x > self.original_x + 100 or self.x < self.original_x - 100:
             self.speed = self.speed * -1
             self.y = self.y + 15
-        if random.randint(1,500) < 2:
+        if random.randint(1,250) < 2:
             self.missiles.append(EnemyMissile(self.screen, self.x, self.y))
 
     def draw(self):
@@ -203,7 +203,7 @@ def main():
             for badguy in enemy_fleet.badguys:
                 if badguy.y > 545 or fighter.dead:
                     game_over = True
-                    game_over_image= pygame.image.load("gameover.png").convert()
+                    game_over_image= pygame.image.load("gameover.png").convert ()
                     screen.blit(game_over_image, (170,200))
                     pygame.display.update()
 main()
