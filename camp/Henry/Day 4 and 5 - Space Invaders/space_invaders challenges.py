@@ -16,7 +16,7 @@ class Boss:
         self.dead = False
         self.missiles = []
         self.speed = 5
-        self.image.set_colorkey((0, 0, 0))
+        self.image.set_colorkey((255, 0, 0))
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -160,6 +160,7 @@ def main():
     # Done: Create a Fighter (called fighter) at location  320, 590
     fighter = Fighter(screen, 320, 590)
     game_over = False
+    boss_exist = False
 
     while True:
         clock.tick(60)
@@ -185,6 +186,8 @@ def main():
         enemy_fleet.draw()
         # Done: Move the enemy
         # Done: Draw the enemy
+        if boss_exist:
+            boss.draw()
 
         # Done: For each missile in the fighter missiles
         for missile in fighter.missiles:
@@ -218,12 +221,15 @@ def main():
 
 
         if enemy_fleet.is_defeated:
-            enemy_rows = enemy_rows + 1
-            enemy_fleet = EnemyFleet(screen, enemy_rows)
-
+            if enemy_rows <= 3:
+                enemy_rows = enemy_rows + 1
+                enemy_fleet = EnemyFleet(screen, enemy_rows)
         if enemy_rows == 4:
-            Boss.draw()
+            badguy.dead = True
 
+        if enemy_rows == 4 and not boss_exist:
+            boss = Boss(screen, 35, - 100)
+            boss_exist = True
 
 
         if not game_over:
