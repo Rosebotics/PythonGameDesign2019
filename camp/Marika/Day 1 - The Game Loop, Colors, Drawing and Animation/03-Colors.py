@@ -6,3 +6,22 @@
 # TODO      2. Inside this file:
 # TODO           -- Click below this comment, then
 # TODO           -- Control-V (to PASTE the copied code into this file.
+
+# My first Pygame program.
+# Authors: Many people and Marika
+
+import pygame
+import sys
+
+screenSize = (640, 480)
+backgroundColor = (180, 180, 180)
+
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+while True:
+    for event in pygame.event.get() :
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+    screen.fill((180, 180, 240))
+    pygame.display.update()

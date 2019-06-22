@@ -8,11 +8,12 @@ from pygame.locals import *
 
 screenSize = (640, 480)
 backgroundColor = (0, 0, 0)
-circleColor = (255, 255, 255)
+circleColor = (155, 155, 155)
 circlePos = (320, 230)
+
 rectY = 100
-rectSpeed= 20
-circleY = 230
+rectSpeed= 5
+
 
 
 
@@ -27,16 +28,17 @@ while True:
             sys.exit()
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[K_UP]:
-            rectY= rectY -rectSpeed
+            rectY= rectY - rectSpeed
         if pressed_keys[K_DOWN]:
-            rectY= rectY + rectSpeed
+            rectY = rectY + rectSpeed
+
 
     screen.fill(backgroundColor)
 
 
     print(rectY)
     pygame.draw.circle(screen, (circleColor), (circlePos), 15)
-    pygame.draw.rect(screen, (circleColor), (600, rectY, 15, 75))
-    pygame.draw.rect(screen, (circleColor), (40, rectY, -15, 75))
+    pygame.draw.rect(screen, (255, 255, 255), (600, rectY, 15, 75))
+    pygame.draw.rect(screen, (255, 255, 255), (40, rectY, -15, 75))
     pygame.display.update()
 

@@ -31,7 +31,7 @@ while True:
 
 
     #fill background before drawing
-    
+
     screen.fill(backgroundColor)
 
     pygame.draw.circle(screen, circleColor , (300, 150), circleRadius)
