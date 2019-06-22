@@ -15,7 +15,21 @@ class Missile:
 
     def draw(self):
         # TODO: Draw a red line from x, y that is 8 pixels in height
-       pygame.draw.line(self.screen,(255,0,0),(self.x,self.y),(self.x,self.y + 8),1)
+       pygame.draw.line(self.screen,(255,0,0),(self.x, self.y),(self.x, self.y + 8),1)
+
+class Missile2:
+    def __init__(self, screen, x):
+        self.screen = screen
+        self.x = x
+        self.y = 591
+        self.exploded = False
+
+    def move(self):
+        self.y = self.y - 5
+
+    def draw(self):
+       pygame.draw.line(self.screen,(255,0,0),(self.x, self.y),(self.x, self.y + 8),1)
+
 
 
 class EnemyMissile:
@@ -31,6 +45,32 @@ class EnemyMissile:
     def draw(self):
        pygame.draw.line(self.screen,(0,255,0),(self.x, self.y),(self.x, self.y + 8 ),1)
 
+
+class Fighter2:
+    def __init__(self, screen, x, y):
+        self.screen = screen
+        self.image = pygame.image.load("fighter2.png").convert()
+        self.image.set_colorkey((255, 255, 255))
+        self.x = self.x
+        self.y = self.y
+        self.missiles = []
+        self.dead = False
+
+    def draw(self):
+        self.screen.blit(self.image, (self.y, self.x))
+
+    def fire2(self):
+        self.missiles.append(Missile(self.screen, self.x + 50))
+
+    def remove_exploded_missiles(self):
+        for k in range(len(self.missiles) - 1, -1, -1):
+            if self.missiles[k].exploded or self.missiles[k].y < 0:
+                del self.missiles[k]
+
+    def hit_by(self, missile):
+        return pygame.Rect(self.x, self.y, 100, 100).collidepoint(missile.x, missile.y)
+
+
 class Fighter:
     def __init__(self, screen, x, y):
         self.screen = screen
@@ -39,16 +79,22 @@ class Fighter:
         self.x = x
         self.y = y
         self.missiles = []
+        self.dead = False
+
+
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
 
     def fire(self):
         self.missiles.append(Missile(self.screen, self.x + 50))
+
     def remove_exploded_missiles(self):
         for k in range(len(self.missiles) - 1, -1, -1):
             if self.missiles[k].exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
+    def hit_by(self,missile):
+        return pygame.Rect( self.x,self.y,100,100).collidepoint(missile.x, missile.y)
 
 
 class Badguy:
@@ -61,7 +107,7 @@ class Badguy:
         self.image.set_colorkey((0, 0, 0))
         self.original_x = x
         self.speed = 3
-
+        self.missiles = []
 
     def move(self):
         self.x = self.x + self.speed
@@ -71,13 +117,17 @@ class Badguy:
         if random.randint(1,1) < 2:
            self.missiles.append(EnemyMissile( self.screen, self.x, self.y))
 
-
-
     def draw(self):
-        self.screen.blit(self.image, (self.x, self.y))
+        self.screen.blit(self.image,(self.x, self.y))
 
     def hit_by(self, missile):
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
+
+    def remove_exploded_missiles(self):
+        for k in range(len(self.missiles) - 1, -1, -1):
+            if self.missiles[k].exploded or self.missiles[k].y < 0:
+                del self.missiles[k]
+
 
 
 class EnemyFleet:
@@ -109,20 +159,22 @@ def main():
     pygame.init()
     clock = pygame.time.Clock()
     pygame.display.set_caption("Space Invaders")
-    pygame.key.set_repeat(1, 2)
+    pygame.key.set_repeat(1, 1)
     screen = pygame.display.set_mode((640, 650))
 
     enemy_rows = 3
     enemy_fleet = EnemyFleet(screen,enemy_rows)
     fighter = Fighter(screen, 320, 590)
+    fighter2 = Fighter2(screen, 320,140)
     game_over = False
     while True:
         clock.tick(60)
         for event in pygame.event.get():
             pressed_keys = pygame.key.get_pressed()
-            # TODO: If the event type is KEYDOWN and pressed_keys[K_SPACE} is True, then fire a missile
             if pressed_keys[K_SPACE] and event.type == KEYDOWN:
                 fighter.fire()
+            if pressed_keys[K_LSHIFT] and event.type == KEYDOWN:
+                fighter2.fire()
             if event.type == QUIT:
                 sys.exit()
         screen.fill((0, 0, 0))
@@ -132,16 +184,30 @@ def main():
         if pressed_keys[K_RIGHT]:
             fighter.x = fighter.x + 3
         fighter.draw()
-
+        if pressed_keys[K_a]:
+            fighter2.y = fighter2.y - 3
+        if pressed_keys[K_d]:
+            fighter2.y = fighter2.y - 3
+        fighter2.draw()
         enemy_fleet.move()
         enemy_fleet.draw()
+        if pressed_keys[K_LSHIFT]:
 
-        for missile in fighter.missiles:
-            missile.move()
-            missile.draw()
-
+            for missile in fighter.missiles:
+                missile.move()
+                missile.draw()
+            for missile in fighter2.missiles:
+                missile.move()
+                missile.draw()
 
         for badguy in enemy_fleet.badguys:
+            for enemyMissile in badguy.missiles:
+                if fighter.hit_by(enemyMissile):
+                    fighter.dead = True
+                    enemyMissile.exploded = True
+                else:
+                    enemyMissile.move()
+                    enemyMissile.draw()
             for missile in fighter.missiles:
                 if badguy.hit_by(missile):
                     badguy.dead = True
@@ -151,18 +217,24 @@ def main():
                     enemy_fleet.remove_dead_badguys()
 
 
-        if enemy_fleet. is_defeated:
+        if enemy_fleet.is_defeated:
             enemy_rows = enemy_rows + 1
             enemy_fleet = EnemyFleet(screen, enemy_rows)
 
 
 
         if not game_over:
-         pygame.display.update()
-         for badguy in enemy_fleet.badguys:
-             if badguy.y > 545:
+            pygame.display.update()
+            for badguy in enemy_fleet.badguys:
+                if badguy.y > 545 or fighter.dead:
                  game_over = True
                  game_over_image = pygame.image.load("gameover.png").convert()
                  screen.blit(game_over_image, (170,200))
                  pygame.display.update()
+
+
+
+
+
+
 main()
