@@ -39,16 +39,16 @@ class Ball:
 
 screenSize = (640, 480)
 backgroundColor = (255, 255, 255)
-circleColor = (220, 0, 0)
+circleColor = (0, 0, 0)
 circleRadius = 20
 X = 300
 Y = 150
-XSpeed = 10
-YSpeed = 10
+XSpeed = 3
+YSpeed = 3
 
 rectY2=100
 rectY = 100
-rectSpeed = 5
+rectSpeed = 10
 
 pygame.init()
 pygame.display.set_caption("Colormeggadan")
@@ -89,7 +89,7 @@ while True:
 
     screen.fill(backgroundColor)
 
-    #pygame.draw.circle(screen, circleColor, (X, Y), circleRadius)
+    pygame.draw.circle(screen, circleColor, (X, Y), circleRadius)
     for b in balllist:
         b.draw()
         b.move()
@@ -97,8 +97,8 @@ while True:
 
 
 
-    #pad1 = (600, rectY, 20, 75)
-    #pad2 = (50, rectY2, 20, 75)
+    pad1 = (600, rectY, 20, 75)
+    pad2 = (50, rectY2, 20, 75)
     if XSpeed> 0:
         edge = X + 20
     else:
@@ -121,7 +121,7 @@ while True:
 
 
 
-    #pygame.draw.rect(screen, (255, 255, 0), pad1)
-    #pygame.draw.rect(screen,(225,0,0),pad2)
+    pygame.draw.rect(screen, (255, 255, 0), pad1)
+    pygame.draw.rect(screen,(225,0,0),pad2)
 
     pygame.display.update()

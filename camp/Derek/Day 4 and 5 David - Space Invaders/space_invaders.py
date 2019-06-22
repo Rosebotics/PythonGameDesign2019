@@ -269,6 +269,7 @@ def main():
         #   NOTE: At this point firing missiles should appear when you press the SPACE bar.
         if pressed_keys[K_SPACE]:
             fighter.fire()
+
         # TODO 11: See your Pong game for how you drew the Ball to:
         #  TODO: Draw the fighter.
         fighter.draw()
@@ -308,7 +309,7 @@ def main():
         enemy.remove_dead_badguys()
 
         if len(enemy.badguys)==0:
-            enemy_rows = 3 + 1
+            enemy_rows = enemy_rows + 1
             enemy = EnemyFleet(screen, enemy_rows)
 
         # TODO: Increment the score of the scoreboard by 100
