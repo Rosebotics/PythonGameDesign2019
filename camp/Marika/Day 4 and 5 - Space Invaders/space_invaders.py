@@ -189,9 +189,11 @@ def main():
 
         fighter.remove_exploded_missiles()
         enemy_fleet.remove_dead_badguys()
-        if enemy_fleet.is_defeated:
+        if enemy_fleet.is_defeated and len(enemy_rows) < 10:
             enemy_rows = enemy_rows + 1
             enemy_fleet = EnemyFleet(screen, enemy_rows)
+        else:
+            continue
 
         if not game_over:
             pygame.display.update()
