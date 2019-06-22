@@ -16,6 +16,20 @@ class Missile:
     def draw(self):
         pygame.draw.line(self.screen, (200, 200, 255,), (self.x, self.y), (self.x, self.y + 8), 1)
 
+class Laser:
+    def __init__(self, screen, x, y):
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.exploded = False
+
+    def move(self):
+        self.y = self.y - 5
+
+
+    def draw(self):
+        pygame.draw.line(self.screen, (255, 0, 0,), (self.x, self.y + 650), (self.x, self.y + 8), 1)
+
 
 class EnemyMissile:
     def __init__(self, screen, x, y):
@@ -41,6 +55,7 @@ class Fighter:
         self.y = y
         self.dead = False
         self.missiles = []
+        self.lasers = []
 
     def draw(self):
         self.screen.blit(self.image, (self.x, self.y))
@@ -48,13 +63,24 @@ class Fighter:
     def fire(self):
         self.missiles.append(Missile(self.screen, self.x + 50, self.y - 50))
 
+    def laser(self):
+        self.lasers.append(Laser(self.screen, self.x + 50, self.y - 50))
+
     def hit_by(self, missile):
         return pygame.Rect(self.x, self.y, 100, 100).collidepoint(missile.x, missile.y)
+
+    def hit_by(self, lasers):
+        return pygame.Rect(self.x, self.y, 100, 100).collidepoint(lasers.x, lasers.y)
 
     def remove_exploded_missiles(self):
         for k in range(len(self.missiles) - 1, -1, -1):
             if self.missiles[k].exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
+
+    def remove_exploded_lasers(self):
+        for k in range(len(self.lasers) - 1, -1, -1):
+            if self.lasers[k].exploded or self.lasers[k].y < 0:
+                del self.lasers[k]
 
 
 class Badguy:
@@ -85,10 +111,18 @@ class Badguy:
     def hit_by(self, missile):
         return pygame.Rect(self.x, self.y, 70, 45).collidepoint(missile.x, missile.y)
 
+    def hit_by(self, laser):
+        return pygame.Rect(self.x, self.y, 70, 45).collidepoint(laser.x, laser.y)
+
     def remove_exploded_missiles(self):
         for k in range(len(self.missiles) - 1, -1, -1):
             if self.missiles[k].exploded or self.missiles[k].y < 0:
                 del self.missiles[k]
+
+    def remove_exploded_lasers(self):
+        for k in range(len(self.lasers) - 1, -1, -1):
+            if self.lasers[k].exploded or self.lasers[k].y < 0:
+                del self.lasers[k]
 
 
 class EnemyFleet:
@@ -133,6 +167,8 @@ def main():
             pressed_keys = pygame.key.get_pressed()
             if pressed_keys[K_SPACE] and event.type == KEYDOWN:
                 fighter.fire()
+            if pressed_keys[K_v] and event.type == KEYDOWN:
+                fighter.laser()
             if event.type == QUIT:
                 sys.exit()
         screen.fill((0, 0, 0))
@@ -161,6 +197,10 @@ def main():
             missile.move()
             missile.draw()
 
+        for laser in fighter.lasers:
+            laser.move()
+            laser.draw()
+
         for badguy in enemy_fleet.badguys:
             for enemyMissile in badguy.missiles:
                 if fighter.hit_by(enemyMissile):
@@ -174,8 +214,13 @@ def main():
                 if badguy.hit_by(missile):
                     badguy.dead = True
                     missile.exploded = True
+            for laser in fighter.lasers:
+                if badguy.hit_by(laser):
+                    badguy.dead = True
+                    laser.exploded = False
 
         fighter.remove_exploded_missiles()
+        fighter.remove_exploded_lasers()
         enemy_fleet.remove_dead_badguys()
 
 
